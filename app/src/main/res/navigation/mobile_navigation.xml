@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.gpacalculator.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_calculator"
+        android:name="com.example.gpacalculator.ui.calculator.CalculatorFragment"
+        android:label="Calculator"
+        tools:layout="@layout/fragment_calculator" />
+
+    <fragment
+        android:id="@+id/nav_grades"
+        android:name="com.example.gpacalculator.ui.grades.GradesFragment"
+        android:label="Grades"
+        tools:layout="@layout/fragment_grades">
+        <action
+            android:id="@+id/action_nav_grades_to_gradesTermFragment"
+            app:destination="@id/gradesTermFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_performance"
+        android:name="com.example.gpacalculator.ui.performance.PerformanceFragment"
+        android:label="Performance"
+        tools:layout="@layout/fragment_performance" />
+
+    <fragment
+        android:id="@+id/gradesTermFragment"
+        android:name="com.example.gpacalculator.ui.grades.GradesTermFragment"
+        android:label="Term"
+        tools:layout="@layout/fragment_grades_term">
+        <action
+            android:id="@+id/action_gradesTermFragment_to_gradesSubjectFragment"
+            app:destination="@id/gradesSubjectFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gradesSubjectFragment"
+        android:name="com.example.gpacalculator.ui.grades.GradesSubjectFragment"
+        android:label="Grades"
+        tools:layout="@layout/fragment_grades_subject" />
+
+    <!--    -->
+
+    <fragment
+        android:id="@+id/action_add_year"
+        android:name="com.example.gpacalculator.ui.add.AddYearFragment"
+        android:label="Add year"
+        tools:layout="@layout/fragment_add_year" />
+    <fragment
+        android:id="@+id/action_add_subject"
+        android:name="com.example.gpacalculator.ui.add.AddSubjectFragment"
+        android:label="Add subject"
+        tools:layout="@layout/fragment_add_subject" />
+    <fragment
+        android:id="@+id/action_add_term"
+        android:name="com.example.gpacalculator.ui.add.AddTermFragment"
+        android:label="Add term"
+        tools:layout="@layout/fragment_add_term" />
+
+    <!--    -->
+
+    <fragment
+        android:id="@+id/action_delete_subject"
+        android:name="com.example.gpacalculator.ui.delete.DeleteSubjectFragment"
+        android:label="Delete subject"
+        tools:layout="@layout/fragment_delete_subject" />
+    <fragment
+        android:id="@+id/action_delete_term"
+        android:name="com.example.gpacalculator.ui.delete.DeleteTermFragment"
+        android:label="Delete term"
+        tools:layout="@layout/fragment_delete_term" />
+    <fragment
+        android:id="@+id/action_delete_year"
+        android:name="com.example.gpacalculator.ui.delete.DeleteYearFragment"
+        android:label="Delete year"
+        tools:layout="@layout/fragment_delete_year" />
+
+    <!--    -->
+
+    <fragment
+        android:id="@+id/action_edit_profile"
+        android:name="com.example.gpacalculator.ui.edit.EditProfileFragment"
+        android:label="Edit profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/action_edit_subject"
+        android:name="com.example.gpacalculator.ui.edit.EditSubjectFragment"
+        android:label="Edit subject"
+        tools:layout="@layout/fragment_edit_subject" />
+    <fragment
+        android:id="@+id/action_edit_term"
+        android:name="com.example.gpacalculator.ui.edit.EditTermFragment"
+        android:label="Edit term"
+        tools:layout="@layout/fragment_edit_term" />
+    <fragment
+        android:id="@+id/action_edit_year"
+        android:name="com.example.gpacalculator.ui.edit.EditYearFragment"
+        android:label="Edit year"
+        tools:layout="@layout/fragment_edit_year" />
+
+</navigation>

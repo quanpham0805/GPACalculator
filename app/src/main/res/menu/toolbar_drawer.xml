@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_add"
+        android:orderInCategory="1"
+        android:title="Add"
+        app:showAsAction="never">
+        <menu>
+            <item
+                android:orderInCategory="1"
+                android:id="@+id/action_add_year"
+                android:title="Add year"
+                app:showAsAction="never" />
+
+            <item
+                android:orderInCategory="2"
+                android:id="@+id/action_add_term"
+                android:title="Add term"
+                app:showAsAction="never" />
+
+            <item
+                android:orderInCategory="3"
+                android:id="@+id/action_add_subject"
+                android:title="Add subject"
+                app:showAsAction="never" />
+
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_edit"
+        android:orderInCategory="2"
+        android:title="Edit"
+        app:showAsAction="never">
+
+        <menu>
+            <item
+                android:orderInCategory="1"
+                android:id="@+id/action_edit_year"
+                android:title="Edit year"
+                app:showAsAction="never" />
+
+            <item
+                android:orderInCategory="2"
+                android:id="@+id/action_edit_term"
+                android:title="Edit term"
+                app:showAsAction="never" />
+
+            <item
+                android:orderInCategory="3"
+                android:id="@+id/action_edit_subject"
+                android:title="Edit subject"
+                app:showAsAction="never" />
+
+            <item
+                android:orderInCategory="4"
+                android:id="@+id/action_edit_profile"
+                android:title="Edit profile"
+                app:showAsAction="never" />
+
+        </menu>
+
+    </item>
+
+    <item
+        android:id="@+id/action_delete"
+        android:orderInCategory="3"
+        android:title="Delete"
+        app:showAsAction="never">
+
+        <menu>
+            <item
+                android:orderInCategory="1"
+                android:id="@+id/action_delete_year"
+                android:title="Delete year"
+                app:showAsAction="never" />
+
+            <item
+                android:orderInCategory="2"
+                android:id="@+id/action_delete_term"
+                android:title="Delete term"
+                app:showAsAction="never" />
+
+            <item
+                android:orderInCategory="3"
+                android:id="@+id/action_delete_subject"
+                android:title="Delete subject"
+                app:showAsAction="never" />
+
+        </menu>
+    </item>
+
+</menu>
