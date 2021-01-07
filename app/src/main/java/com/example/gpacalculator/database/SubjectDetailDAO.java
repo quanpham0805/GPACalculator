@@ -1,5 +1,6 @@
 package com.example.gpacalculator.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -12,11 +13,11 @@ import java.util.List;
 @Dao
 public interface SubjectDetailDAO {
     @Query("SELECT * FROM subject_detail")
-    List<SubjectDetailEntity> loadAllDetail();
+    LiveData<List<SubjectDetailEntity>> loadAllDetail();
 
     @Transaction
     @Query("SELECT * FROM subject_detail WHERE locationID = :locationID")
-    List<SubjectDetailEntity> getCorrespondingSubject(int locationID);
+    LiveData<List<SubjectDetailEntity>> getCorrespondingSubject(int locationID);
 
     @Insert
     void insertDetail(SubjectDetailEntity subjectDetailEntity);

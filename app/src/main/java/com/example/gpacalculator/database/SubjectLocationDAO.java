@@ -13,7 +13,7 @@ import java.util.List;
 public interface SubjectLocationDAO {
 
     @Query("SELECT * FROM subject_location")
-    List<SubjectLocationEntity> loadAllLocations();
+    LiveData<List<SubjectLocationEntity>> loadAllLocations();
 
     @Insert
     void insertLocation(SubjectLocationEntity subjectLocationEntity);
