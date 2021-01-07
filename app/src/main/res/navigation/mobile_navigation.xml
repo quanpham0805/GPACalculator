@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_nav_grades_to_gradesTermFragment"
             app:destination="@id/gradesTermFragment" />
+        <action
+            android:id="@+id/action_nav_grades_to_action_add_year"
+            app:destination="@id/action_add_year" />
     </fragment>
 
     <fragment
@@ -41,13 +44,20 @@
         <action
             android:id="@+id/action_gradesTermFragment_to_gradesSubjectFragment"
             app:destination="@id/gradesSubjectFragment" />
+        <action
+            android:id="@+id/action_gradesTermFragment_to_action_add_term"
+            app:destination="@id/action_add_term" />
     </fragment>
 
     <fragment
         android:id="@+id/gradesSubjectFragment"
         android:name="com.example.gpacalculator.ui.grades.GradesSubjectFragment"
         android:label="Grades"
-        tools:layout="@layout/fragment_grades_subject" />
+        tools:layout="@layout/fragment_grades_subject" >
+        <action
+            android:id="@+id/action_gradesSubjectFragment_to_action_add_subject"
+            app:destination="@id/action_add_subject" />
+    </fragment>
 
     <!--    -->
 
@@ -55,17 +65,29 @@
         android:id="@+id/action_add_year"
         android:name="com.example.gpacalculator.ui.add.AddYearFragment"
         android:label="Add year"
-        tools:layout="@layout/fragment_add_year" />
+        tools:layout="@layout/fragment_add_year" >
+        <action
+            android:id="@+id/action_action_add_year_to_nav_grades"
+            app:destination="@id/nav_grades" />
+    </fragment>
     <fragment
         android:id="@+id/action_add_subject"
         android:name="com.example.gpacalculator.ui.add.AddSubjectFragment"
         android:label="Add subject"
-        tools:layout="@layout/fragment_add_subject" />
+        tools:layout="@layout/fragment_add_subject" >
+        <action
+            android:id="@+id/action_action_add_subject_to_gradesSubjectFragment"
+            app:destination="@id/gradesSubjectFragment" />
+    </fragment>
     <fragment
         android:id="@+id/action_add_term"
         android:name="com.example.gpacalculator.ui.add.AddTermFragment"
         android:label="Add term"
-        tools:layout="@layout/fragment_add_term" />
+        tools:layout="@layout/fragment_add_term" >
+        <action
+            android:id="@+id/action_action_add_term_to_gradesTermFragment"
+            app:destination="@id/gradesTermFragment" />
+    </fragment>
 
     <!--    -->
 

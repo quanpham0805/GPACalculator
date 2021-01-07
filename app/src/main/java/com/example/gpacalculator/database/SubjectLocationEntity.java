@@ -9,7 +9,6 @@ public class SubjectLocationEntity {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
-
     private int year;
     private String term;
     private String subject;

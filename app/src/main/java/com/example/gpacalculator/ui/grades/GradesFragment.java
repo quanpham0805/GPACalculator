@@ -27,7 +27,7 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
 
     private Toast mToast;
     private RVAdapter mAdapter;
-    private ArrayList<String> tempdata = new ArrayList<String>();
+    private ArrayList<String> tempdata = new ArrayList<>();
 
     @Nullable
     @Override
@@ -56,11 +56,12 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
                 if (mToast != null) {
                     mToast.cancel();
                 }
-                mToast = Toast.makeText(view.getContext(), "Added one", Toast.LENGTH_SHORT);
+                mToast = Toast.makeText(view.getContext(), "Adding page", Toast.LENGTH_SHORT);
                 mToast.show();
 
-                tempdata.add(Integer.toString(tempdata.size() + 1));
-                mAdapter.updateData(tempdata);
+                Navigation.findNavController(view).navigate(R.id.action_nav_grades_to_action_add_year);
+//                tempdata.add(Integer.toString(tempdata.size() + 1));
+//                mAdapter.updateData(tempdata);
             }
         });
 
@@ -97,6 +98,9 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (this.getActivity() == null) {
+            throw new RuntimeException("null returned from getActivity() in GradesFragment");
+        }
         NavController navController = Navigation.findNavController(this.getActivity(), R.id.nav_host_fragment);
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }

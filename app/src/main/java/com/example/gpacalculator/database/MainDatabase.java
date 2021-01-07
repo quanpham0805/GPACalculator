@@ -21,7 +21,9 @@ public abstract class MainDatabase extends RoomDatabase {
         }
         synchronized (MainDatabase.class) {
             Log.d(LOG_TAG, "creating a new database instance");
-            sInstance = Room.databaseBuilder(context.getApplicationContext(), MainDatabase.class, "gpa_database.db").build();
+            sInstance = Room.databaseBuilder(context.getApplicationContext(), MainDatabase.class, "gpa_database.db")
+                    .fallbackToDestructiveMigration()
+                    .build();
             return sInstance;
         }
     }
