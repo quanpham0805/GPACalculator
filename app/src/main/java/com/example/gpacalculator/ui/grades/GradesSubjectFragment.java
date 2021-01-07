@@ -27,7 +27,7 @@ public class GradesSubjectFragment extends Fragment implements RVAdapter.ListIte
 
     private Toast mToast;
     private RVAdapter mAdapter;
-    private ArrayList<String> tempdata = new ArrayList<String>();
+    private ArrayList<String> tempdata = new ArrayList<>();
 
     @Nullable
     @Override
@@ -61,7 +61,7 @@ public class GradesSubjectFragment extends Fragment implements RVAdapter.ListIte
         }
 
 
-        mAdapter.updateData(tempdata);
+        mAdapter.updateDataString(tempdata);
         recyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -75,7 +75,7 @@ public class GradesSubjectFragment extends Fragment implements RVAdapter.ListIte
                 mToast.show();
 
                 tempdata.add(Integer.toString(tempdata.size() + 1));
-                mAdapter.updateData(tempdata);
+                mAdapter.updateDataString(tempdata);
             }
         });
 
@@ -107,6 +107,9 @@ public class GradesSubjectFragment extends Fragment implements RVAdapter.ListIte
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (this.getActivity() == null) {
+            throw new RuntimeException("null returned from getActivity() in GradesSubjectFragment");
+        }
         NavController navController = Navigation.findNavController(this.getActivity(), R.id.nav_host_fragment);
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }

@@ -13,8 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.Navigation;
 
 import com.example.gpacalculator.R;
@@ -46,16 +46,28 @@ public class AddYearFragment extends Fragment {
         return view;
     }
 
-    private void insertDataToDatabase (View view) {
+    private void insertDataToDatabase (final View view) {
         EditText year = (EditText) view.findViewById(R.id.year_field);
 
         if (year != null && isParsable(year.getText().toString())) {
-            int mYear = Integer.parseInt(year.getText().toString());
-            SubjectLocationEntity subjectLocationEntity = new SubjectLocationEntity(mYear, "", "", -1);
-            gradesViewModel.insertLocation(subjectLocationEntity);
+            final int mYear = Integer.parseInt(year.getText().toString());
 
-            Toast.makeText(this.getContext(), "Added one", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(view).navigate(R.id.action_action_add_year_to_nav_grades);
+            gradesViewModel.checkYearExisted(mYear).observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    // existed
+                    if (aBoolean)
+                        Toast.makeText(getContext(), "Entry already existed", Toast.LENGTH_SHORT).show();
+                    else {
+                        SubjectLocationEntity subjectLocationEntity = new SubjectLocationEntity(mYear, "", "", -1);
+                        gradesViewModel.insertLocation(subjectLocationEntity);
+
+                        Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
+                        Navigation.findNavController(view).navigate(R.id.action_action_add_year_to_nav_grades);
+                    }
+                }
+            });
+
         } else {
             Toast.makeText(this.getContext(), "Invalid input", Toast.LENGTH_SHORT).show();
         }

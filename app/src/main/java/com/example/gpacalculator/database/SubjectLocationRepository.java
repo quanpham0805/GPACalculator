@@ -10,6 +10,8 @@ public class SubjectLocationRepository {
 
     private SubjectLocationDAO subjectLocationDAO;
     private LiveData<List<SubjectLocationEntity>> readAllData;
+    private LiveData<List<Integer>> readAllYear;
+    private boolean yearExisted;
 
 
     // Since AsyncTask is deprecated, we use this instead
@@ -18,6 +20,7 @@ public class SubjectLocationRepository {
     public SubjectLocationRepository(SubjectLocationDAO subjectLocationDAO) {
         this.subjectLocationDAO = subjectLocationDAO;
         this.readAllData = subjectLocationDAO.loadAllLocations();
+        this.readAllYear = subjectLocationDAO.loadAllYear();
     }
 
     public void addLocation(final SubjectLocationEntity subjectLocationEntity) {
@@ -33,6 +36,10 @@ public class SubjectLocationRepository {
         return readAllData;
     }
 
+    public LiveData<List<Integer>> getReadAllYear() {
+        return readAllYear;
+    }
+
     public SubjectLocationDAO getmSubjectLocationDAO() {
         return subjectLocationDAO;
     }
@@ -41,5 +48,9 @@ public class SubjectLocationRepository {
     // fake doInBackground
     protected void doInBackground(SubjectLocationEntity subjectLocationEntity) {
         subjectLocationDAO.insertLocation(subjectLocationEntity);
+    }
+
+    public LiveData<Boolean> getYearExisted(int year) {
+        return subjectLocationDAO.yearExisted(year);
     }
 }

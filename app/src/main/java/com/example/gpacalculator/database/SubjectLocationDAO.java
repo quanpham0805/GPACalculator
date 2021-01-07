@@ -12,8 +12,15 @@ import java.util.List;
 @Dao
 public interface SubjectLocationDAO {
 
-    @Query("SELECT * FROM subject_location")
+    @Query("SELECT * FROM subject_location ORDER BY id ASC")
     LiveData<List<SubjectLocationEntity>> loadAllLocations();
+
+    @Query("SELECT DISTINCT(year) FROM subject_location ORDER BY id ASC")
+    LiveData<List<Integer>> loadAllYear();
+
+    @Query("SELECT EXISTS(SELECT 1 FROM subject_location WHERE year = :year)")
+    LiveData<Boolean> yearExisted(int year);
+
 
     @Insert
     void insertLocation(SubjectLocationEntity subjectLocationEntity);

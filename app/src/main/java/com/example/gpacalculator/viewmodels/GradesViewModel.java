@@ -16,6 +16,7 @@ import java.util.List;
 public class GradesViewModel extends AndroidViewModel {
 
     private LiveData<List<SubjectLocationEntity>> readAllData;
+    private LiveData<List<Integer>> readAllYear;
     private SubjectLocationDAO subjectLocationDao;
     private SubjectLocationRepository repository;
 
@@ -26,9 +27,20 @@ public class GradesViewModel extends AndroidViewModel {
         this.subjectLocationDao = MainDatabase.getInstance(application).subjectLocationDAO();
         this.repository = new SubjectLocationRepository(this.subjectLocationDao);
         this.readAllData = this.repository.getReadAllData();
+        this.readAllYear = this.repository.getReadAllYear();
     }
 
+    public LiveData<List<SubjectLocationEntity>> getReadAllData() {
+        return readAllData;
+    }
 
+    public LiveData<List<Integer>> getAllYear() {
+        return readAllYear;
+    }
+
+    public LiveData<Boolean> checkYearExisted(int year) {
+        return repository.getYearExisted(year);
+    }
 
     public void insertLocation(SubjectLocationEntity subjectLocationEntity) {
         repository.addLocation(subjectLocationEntity);

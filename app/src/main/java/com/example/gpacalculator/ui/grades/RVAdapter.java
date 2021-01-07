@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.gpacalculator.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
 
-    private int mNumberItems;
     private final ListItemClickListener mOnClickListener;
-    private ArrayList<String> RVData;
+    private List<String> RVData;
 
     public RVAdapter(ListItemClickListener listener) {
         this.mOnClickListener = listener;
@@ -57,17 +57,34 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RVViewHolder holder, int position) {
-        holder.getTextView().setText(RVData.get(position));
+        if (RVData != null)
+            holder.getTextView().setText(RVData.get(position));
+        else
+            holder.getTextView().setText("No Data");
     }
 
     @Override
     public int getItemCount() {
-        return this.RVData.size();
+        if (RVData != null)
+            return RVData.size();
+        else return 0;
     }
 
-    public void updateData(ArrayList<String> newData) {
-        this.RVData = newData;
+    public void updateDataInteger(List<Integer> newData) {
+        if (newData == null) RVData = null;
+        else {
+            if (RVData != null) RVData.clear();
+            else RVData = new ArrayList<>();
+            for (Integer i : newData) {
+                RVData.add(Integer.toString(i));
+            }
+        }
+    }
+
+    public void updateDataString(List<String> newData) {
+        RVData = newData;
         notifyDataSetChanged();
     }
+
 
 }
