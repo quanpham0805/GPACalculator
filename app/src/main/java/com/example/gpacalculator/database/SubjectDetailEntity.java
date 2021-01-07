@@ -1,10 +1,16 @@
 package com.example.gpacalculator.database;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "subject_detail")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(
+        tableName = "subject_detail",
+        foreignKeys = @ForeignKey(entity = SubjectLocationEntity.class, parentColumns = "id", childColumns = "locationID", onDelete = CASCADE)
+)
 public class SubjectDetailEntity {
 
     @PrimaryKey(autoGenerate = true)
