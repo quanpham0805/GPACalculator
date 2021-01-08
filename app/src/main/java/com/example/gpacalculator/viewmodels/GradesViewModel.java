@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.example.gpacalculator.database.MainDatabase;
 import com.example.gpacalculator.database.SubjectLocationDAO;
 import com.example.gpacalculator.database.SubjectLocationEntity;
-import com.example.gpacalculator.database.SubjectLocationRepository;
+import com.example.gpacalculator.database.CourseYearRepository;
 
 import java.util.List;
 
@@ -18,14 +18,14 @@ public class GradesViewModel extends AndroidViewModel {
     private LiveData<List<SubjectLocationEntity>> readAllData;
     private LiveData<List<Integer>> readAllYear;
     private SubjectLocationDAO subjectLocationDao;
-    private SubjectLocationRepository repository;
+    private CourseYearRepository repository;
 
     public GradesViewModel(@NonNull Application application) {
         super(application);
 
 
         this.subjectLocationDao = MainDatabase.getInstance(application).subjectLocationDAO();
-        this.repository = new SubjectLocationRepository(this.subjectLocationDao);
+        this.repository = new CourseYearRepository(this.subjectLocationDao);
         this.readAllData = this.repository.getReadAllData();
         this.readAllYear = this.repository.getReadAllYear();
     }

@@ -7,7 +7,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {SubjectDetailEntity.class, SubjectLocationEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {CourseYearEntity.class, CourseTermEntity.class, CourseEntity.class, CourseDetailEntity.class}, version = 1, exportSchema = false)
 public abstract class MainDatabase extends RoomDatabase {
 
     private static final String LOG_TAG = MainDatabase.class.getSimpleName();
@@ -28,8 +28,11 @@ public abstract class MainDatabase extends RoomDatabase {
         }
     }
 
-    public abstract SubjectDetailDAO subjectDetailDAO();
+    public abstract CourseYearDao courseYearDao();
 
-    public abstract SubjectLocationDAO subjectLocationDAO();
+    public abstract CourseTermDao courseTermDao();
 
+    public abstract CourseDao courseDao();
+
+    public abstract CourseDetailDao courseDetailDao();
 }
