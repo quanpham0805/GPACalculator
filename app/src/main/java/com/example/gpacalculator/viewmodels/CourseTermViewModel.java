@@ -50,4 +50,8 @@ public class CourseTermViewModel extends AndroidViewModel {
     public void insertTerm(CourseTermEntity courseTermEntity) {
         repository.addTerm(courseTermEntity);
     }
+
+    public LiveData<List<String>> getTermFromYearId(int yearId) {
+        return repository.getTermFromYearId(yearId);
+    }
 }

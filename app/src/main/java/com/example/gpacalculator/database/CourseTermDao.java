@@ -27,6 +27,10 @@ public interface CourseTermDao {
     @Query("SELECT EXISTS(SELECT 1 FROM course_term WHERE term = :term AND yearId = :yearId)")
     LiveData<Boolean> termExisted(String term, int yearId);
 
+    @Query("SELECT term FROM course_term WHERE yearId = :yearId")
+    LiveData<List<String>> getTermFromYearId(int yearId);
+
+
     @Insert
     void insertTerm(CourseTermEntity courseTermEntity);
 

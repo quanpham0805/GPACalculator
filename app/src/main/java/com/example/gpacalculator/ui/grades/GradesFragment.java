@@ -54,7 +54,7 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         recyclerView.setAdapter(mAdapter);
-        mAdapter.updateDataInteger(fYearData);
+//        mAdapter.updateDataInteger(fYearData);
 
         // Course Year ViewModel
         mYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
@@ -100,9 +100,9 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
         mToast.show();
 
         Bundle bundle = new Bundle();
-        bundle.putString("selected", Integer.toString(fYearData.get(clickedItemIndex)));
+        bundle.putInt("selected", fYearData.get(clickedItemIndex));
 
-//        Navigation.findNavController(view).navigate(R.id.action_nav_grades_to_gradesTermFragment, bundle);
+        Navigation.findNavController(view).navigate(R.id.action_nav_grades_to_gradesTermFragment, bundle);
     }
 
     @Override

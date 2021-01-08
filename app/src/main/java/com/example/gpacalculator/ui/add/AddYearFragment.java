@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.gpacalculator.R;
@@ -63,7 +64,12 @@ public class AddYearFragment extends Fragment {
                         courseYearViewModel.insertYear(courseYearEntity);
 
                         Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
-                        Navigation.findNavController(view).navigate(R.id.action_action_add_year_to_nav_grades);
+
+                        NavController navController = Navigation.findNavController(view);
+                        String prevBackStack =  navController.getPreviousBackStackEntry().getDestination().toString();
+                        if (prevBackStack.contains("nav_grades"))
+                            navController.navigate(R.id.action_action_add_year_to_nav_grades_Grades);
+                        else navController.navigate(R.id.action_action_add_year_to_nav_grades_Home);
                     }
                 }
             });

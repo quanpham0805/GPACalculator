@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.gpacalculator.R;
@@ -81,7 +81,7 @@ public class AddTermFragment extends Fragment {
         EditText term = (EditText) view.findViewById(R.id.term_field);
 
         if (inputCheck(year, term)) {
-            int mYear = Integer.parseInt(year);
+            final int mYear = Integer.parseInt(year);
             final String mTerm = term.getText().toString();
 
             courseTermViewModel.getYearIdFromYear(mYear).observe(this, new Observer<Integer>() {
@@ -98,7 +98,25 @@ public class AddTermFragment extends Fragment {
                                 courseTermViewModel.insertTerm(courseTermEntity);
 
                                 Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
-                                Navigation.findNavController(view).navigate(R.id.action_action_add_term_to_gradesTermFragment);
+
+                                Bundle bundle = new Bundle();
+                                bundle.putInt("selected", mYear);
+
+                                // Navigate back to GradesTermFragment
+                                // However, to prevent making a loop, we need to consider 2 cases:
+                                // If we arrive at this Add Term fragment from grades term fragment,
+                                // we need to pop gradesTermFragment as well.
+                                // Otherwise we only need to pop AddTerm
+                                NavController navController = Navigation.findNavController(view);
+                                String prevBackStack =  navController.getPreviousBackStackEntry().getDestination().toString();
+//                                Log.e(LOG_TAG, prevBackStack);
+                                if (prevBackStack.contains("gradesTermFragment")) {
+                                    navController.navigate(R.id.action_action_add_term_to_gradesTermFragment_Term, bundle);
+//                                    Log.e(LOG_TAG, "fml");
+                                } else {
+                                    navController.navigate(R.id.action_action_add_term_to_gradesTermFragment_Home, bundle);
+//                                    Log.e(LOG_TAG, "new feature");
+                                }
                             }
                         }
                     });

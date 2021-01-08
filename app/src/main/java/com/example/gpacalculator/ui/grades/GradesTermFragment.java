@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -23,12 +25,13 @@ import com.example.gpacalculator.viewmodels.CourseTermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GradesTermFragment extends Fragment implements RVAdapter.ListItemClickListener {
 
     private Toast mToast;
     private RVAdapter mAdapter;
-    private ArrayList<String> fTermData = new ArrayList<>();
+    private List<String> fTermData = new ArrayList<>();
     private CourseTermViewModel mTermViewModel;
 
     @Nullable
@@ -36,6 +39,7 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_grades_term, container, false);
 
+        int tYear = getArguments().getInt("selected");
 
         // making fake data
 //        if (fTermData.isEmpty()) {
@@ -63,12 +67,23 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
         mAdapter = new RVAdapter(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
-
-
-
-
-        mAdapter.updateDataString(fTermData);
         recyclerView.setAdapter(mAdapter);
+
+
+        // Course Term View Model here
+        mTermViewModel = new ViewModelProvider(this).get(CourseTermViewModel.class);
+        mTermViewModel.getYearIdFromYear(tYear).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer tYearId) {
+                mTermViewModel.getTermFromYearId(tYearId).observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+                    @Override
+                    public void onChanged(List<String> mTerm) {
+                        fTermData = mTerm;
+                        mAdapter.updateDataString(mTerm);
+                    }
+                });
+            }
+        });
 
 
         // Setting the floating button
@@ -79,33 +94,35 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
                 if (mToast != null) {
                     mToast.cancel();
                 }
-                mToast = Toast.makeText(view.getContext(), "Added one", Toast.LENGTH_SHORT);
+                mToast = Toast.makeText(view.getContext(), "Adding page", Toast.LENGTH_SHORT);
                 mToast.show();
 
-                fTermData.add(Integer.toString(fTermData.size() + 1));
-                mAdapter.updateDataString(fTermData);
+                Navigation.findNavController(view).navigate(R.id.action_gradesTermFragment_to_action_add_term);
             }
         });
 
         return view;
     }
 
+
+    // setting click behavior for list item click
+    // TODO: move to next fragment
     @Override
     public void onListItemClick(int clickedItemIndex, View view) {
         if (mToast != null) {
             mToast.cancel();
         }
 
-        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
+        String toastMessage = "Item " + fTermData.get(clickedItemIndex) + " was clicked.";
         mToast = Toast.makeText(this.getContext(), toastMessage, Toast.LENGTH_SHORT);
         mToast.show();
 
         Bundle bundle = new Bundle();
         bundle.putString("selected", fTermData.get(clickedItemIndex));
 
-        Navigation
-                .findNavController(view)
-                .navigate(R.id.action_gradesTermFragment_to_gradesCourseFragment, bundle);
+//        Navigation
+//                .findNavController(view)
+//                .navigate(R.id.action_gradesTermFragment_to_gradesCourseFragment, bundle);
     }
 
     @Override
@@ -114,12 +131,17 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
         setHasOptionsMenu(true);
     }
 
+
+    // inflating the app bar menu of the vertical ellipsis
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_drawer, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+
+
+    // app bar menu of the vertical ellipsis
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (this.getActivity() == null) {

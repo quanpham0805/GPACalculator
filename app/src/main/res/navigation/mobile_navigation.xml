@@ -53,7 +53,7 @@
         android:id="@+id/gradesCourseFragment"
         android:name="com.example.gpacalculator.ui.grades.GradesCourseFragment"
         android:label="Grades"
-        tools:layout="@layout/fragment_grades_course" >
+        tools:layout="@layout/fragment_grades_course">
         <action
             android:id="@+id/action_gradesCourseFragment_to_action_add_course"
             app:destination="@id/action_add_course" />
@@ -65,28 +65,52 @@
         android:id="@+id/action_add_year"
         android:name="com.example.gpacalculator.ui.add.AddYearFragment"
         android:label="Add year"
-        tools:layout="@layout/fragment_add_year" >
+        tools:layout="@layout/fragment_add_year">
         <action
-            android:id="@+id/action_action_add_year_to_nav_grades"
-            app:destination="@id/nav_grades" />
+            android:id="@+id/action_action_add_year_to_nav_grades_Grades"
+            app:destination="@id/nav_grades"
+            app:popUpTo="@id/nav_grades"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_action_add_year_to_nav_grades_Home"
+            app:destination="@id/nav_grades"
+            app:popUpTo="@id/action_add_year"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/action_add_course"
         android:name="com.example.gpacalculator.ui.add.AddCourseFragment"
         android:label="Add course"
-        tools:layout="@layout/fragment_add_course" >
+        tools:layout="@layout/fragment_add_course">
         <action
-            android:id="@+id/action_action_add_course_to_gradesCourseFragment"
-            app:destination="@id/gradesCourseFragment" />
+            android:id="@+id/action_action_add_course_to_gradesCourseFragment_Course"
+            app:destination="@id/gradesCourseFragment"
+            app:popUpTo="@id/gradesCourseFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_action_add_course_to_gradesCourseFragment_Home"
+            app:destination="@id/gradesCourseFragment"
+            app:popUpTo="@id/action_add_course"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/action_add_term"
         android:name="com.example.gpacalculator.ui.add.AddTermFragment"
         android:label="Add term"
-        tools:layout="@layout/fragment_add_term" >
+        tools:layout="@layout/fragment_add_term">
+
         <action
-            android:id="@+id/action_action_add_term_to_gradesTermFragment"
-            app:destination="@id/gradesTermFragment" />
+            android:id="@+id/action_action_add_term_to_gradesTermFragment_Term"
+            app:destination="@id/gradesTermFragment"
+            app:popUpTo="@id/gradesTermFragment"
+            app:popUpToInclusive="true" />
+
+        <action
+            android:id="@+id/action_action_add_term_to_gradesTermFragment_Home"
+            app:destination="@id/gradesTermFragment"
+            app:popUpTo="@id/action_add_term"
+            app:popUpToInclusive="true" />
+
     </fragment>
 
     <!--    -->

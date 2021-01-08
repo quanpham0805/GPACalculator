@@ -58,4 +58,8 @@ public class CourseTermRepository {
     public LiveData<Integer> getYearIdFromYear(int year) {
         return courseTermDao.getYearIdFromYear(year);
     }
+
+    public LiveData<List<String>> getTermFromYearId(int yearId) {
+        return courseTermDao.getTermFromYearId(yearId);
+    }
 }
