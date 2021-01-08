@@ -33,7 +33,9 @@ public class AddYearFragment extends Fragment {
 
         courseYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
 
-        Button btn = view.findViewById(R.id.button);
+
+        // set up add button
+        Button btn = (Button) view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

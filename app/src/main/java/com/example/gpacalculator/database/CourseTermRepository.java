@@ -13,6 +13,7 @@ public class CourseTermRepository {
     private CourseTermDao courseTermDao;
     private LiveData<List<CourseTermEntity>> readAllData;
     private LiveData<List<String>> readAllTerm;
+    private LiveData<List<Integer>> readAllYear;
 
     // Since AsyncTask is deprecated, we use this instead
     private final Executor executor = Executors.newSingleThreadExecutor();
@@ -21,6 +22,11 @@ public class CourseTermRepository {
         courseTermDao = MainDatabase.getInstance(application).courseTermDao();
         readAllData = courseTermDao.loadAllData();
         readAllTerm = courseTermDao.loadAllTerm();
+        readAllYear = courseTermDao.loadAllYear();
+    }
+
+    public LiveData<List<Integer>> getAllYear() {
+        return readAllYear;
     }
 
     public void addTerm(final CourseTermEntity courseTermEntity) {
@@ -45,7 +51,11 @@ public class CourseTermRepository {
         return readAllTerm;
     }
 
-    public LiveData<Boolean> getTermExisted(String term) {
-        return courseTermDao.termExisted(term);
+    public LiveData<Boolean> getTermExisted(String term, int yearId) {
+        return courseTermDao.termExisted(term, yearId);
+    }
+
+    public LiveData<Integer> getYearIdFromYear(int year) {
+        return courseTermDao.getYearIdFromYear(year);
     }
 }

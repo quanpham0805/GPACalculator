@@ -15,6 +15,7 @@ public class CourseTermViewModel extends AndroidViewModel {
 
     private LiveData<List<CourseTermEntity>> readAllData;
     private LiveData<List<String>> readAllTerm;
+    private LiveData<List<Integer>> readAllYear;
     private CourseTermRepository repository;
 
     public CourseTermViewModel(@NonNull Application application) {
@@ -23,6 +24,7 @@ public class CourseTermViewModel extends AndroidViewModel {
         this.repository = new CourseTermRepository(application);
         this.readAllData = this.repository.getReadAllData();
         this.readAllTerm = this.repository.getReadAllTerm();
+        this.readAllYear = this.repository.getAllYear();
     }
 
     public LiveData<List<CourseTermEntity>> getReadAllData() {
@@ -33,8 +35,16 @@ public class CourseTermViewModel extends AndroidViewModel {
         return readAllTerm;
     }
 
-    public LiveData<Boolean> checkTermExisted(String term) {
-        return repository.getTermExisted(term);
+    public LiveData<List<Integer>> getAllYear() {
+        return readAllYear;
+    }
+
+    public LiveData<Boolean> checkTermExisted(String term, int yearId) {
+        return repository.getTermExisted(term, yearId);
+    }
+
+    public LiveData<Integer> getYearIdFromYear(int year) {
+        return repository.getYearIdFromYear(year);
     }
 
     public void insertTerm(CourseTermEntity courseTermEntity) {
