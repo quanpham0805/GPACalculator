@@ -71,14 +71,20 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
     }
 
     public void updateDataInteger(List<Integer> newData) {
-        if (newData == null) RVData = null;
-        else {
-            if (RVData != null) RVData.clear();
-            else RVData = new ArrayList<>();
-            for (Integer i : newData) {
-                RVData.add(Integer.toString(i));
-            }
+//        if (newData == null) RVData = null;
+//        else {
+//            if (RVData != null) RVData.clear();
+//            else RVData = new ArrayList<>();
+//            for (Integer i : newData) {
+//                RVData.add(Integer.toString(i));
+//            }
+//        }
+
+        RVData = new ArrayList<>();
+        for (Integer i : newData) {
+            RVData.add(Integer.toString(i));
         }
+        notifyDataSetChanged();
     }
 
     public void updateDataString(List<String> newData) {
