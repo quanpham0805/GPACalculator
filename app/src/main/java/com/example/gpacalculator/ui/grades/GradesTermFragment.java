@@ -97,7 +97,7 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
 
         Navigation
                 .findNavController(view)
-                .navigate(R.id.action_gradesTermFragment_to_gradesSubjectFragment, bundle);
+                .navigate(R.id.action_gradesTermFragment_to_gradesCourseFragment, bundle);
     }
 
     @Override

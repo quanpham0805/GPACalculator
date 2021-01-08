@@ -42,21 +42,21 @@
         android:label="Term"
         tools:layout="@layout/fragment_grades_term">
         <action
-            android:id="@+id/action_gradesTermFragment_to_gradesSubjectFragment"
-            app:destination="@id/gradesSubjectFragment" />
+            android:id="@+id/action_gradesTermFragment_to_gradesCourseFragment"
+            app:destination="@id/gradesCourseFragment" />
         <action
             android:id="@+id/action_gradesTermFragment_to_action_add_term"
             app:destination="@id/action_add_term" />
     </fragment>
 
     <fragment
-        android:id="@+id/gradesSubjectFragment"
-        android:name="com.example.gpacalculator.ui.grades.GradesSubjectFragment"
+        android:id="@+id/gradesCourseFragment"
+        android:name="com.example.gpacalculator.ui.grades.GradesCourseFragment"
         android:label="Grades"
-        tools:layout="@layout/fragment_grades_subject" >
+        tools:layout="@layout/fragment_grades_course" >
         <action
-            android:id="@+id/action_gradesSubjectFragment_to_action_add_subject"
-            app:destination="@id/action_add_subject" />
+            android:id="@+id/action_gradesCourseFragment_to_action_add_course"
+            app:destination="@id/action_add_course" />
     </fragment>
 
     <!--    -->
@@ -71,13 +71,13 @@
             app:destination="@id/nav_grades" />
     </fragment>
     <fragment
-        android:id="@+id/action_add_subject"
-        android:name="com.example.gpacalculator.ui.add.AddSubjectFragment"
-        android:label="Add subject"
-        tools:layout="@layout/fragment_add_subject" >
+        android:id="@+id/action_add_course"
+        android:name="com.example.gpacalculator.ui.add.AddCourseFragment"
+        android:label="Add course"
+        tools:layout="@layout/fragment_add_course" >
         <action
-            android:id="@+id/action_action_add_subject_to_gradesSubjectFragment"
-            app:destination="@id/gradesSubjectFragment" />
+            android:id="@+id/action_action_add_course_to_gradesCourseFragment"
+            app:destination="@id/gradesCourseFragment" />
     </fragment>
     <fragment
         android:id="@+id/action_add_term"
@@ -92,10 +92,10 @@
     <!--    -->
 
     <fragment
-        android:id="@+id/action_delete_subject"
-        android:name="com.example.gpacalculator.ui.delete.DeleteSubjectFragment"
-        android:label="Delete subject"
-        tools:layout="@layout/fragment_delete_subject" />
+        android:id="@+id/action_delete_course"
+        android:name="com.example.gpacalculator.ui.delete.DeleteCourseFragment"
+        android:label="Delete course"
+        tools:layout="@layout/fragment_delete_course" />
     <fragment
         android:id="@+id/action_delete_term"
         android:name="com.example.gpacalculator.ui.delete.DeleteTermFragment"
@@ -115,10 +115,10 @@
         android:label="Edit profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
-        android:id="@+id/action_edit_subject"
-        android:name="com.example.gpacalculator.ui.edit.EditSubjectFragment"
-        android:label="Edit subject"
-        tools:layout="@layout/fragment_edit_subject" />
+        android:id="@+id/action_edit_course"
+        android:name="com.example.gpacalculator.ui.edit.EditCourseFragment"
+        android:label="Edit course"
+        tools:layout="@layout/fragment_edit_course" />
     <fragment
         android:id="@+id/action_edit_term"
         android:name="com.example.gpacalculator.ui.edit.EditTermFragment"

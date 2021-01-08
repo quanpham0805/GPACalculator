@@ -21,8 +21,8 @@
 
             <item
                 android:orderInCategory="3"
-                android:id="@+id/action_add_subject"
-                android:title="Add subject"
+                android:id="@+id/action_add_course"
+                android:title="Add course"
                 app:showAsAction="never" />
 
         </menu>
@@ -49,8 +49,8 @@
 
             <item
                 android:orderInCategory="3"
-                android:id="@+id/action_edit_subject"
-                android:title="Edit subject"
+                android:id="@+id/action_edit_course"
+                android:title="Edit course"
                 app:showAsAction="never" />
 
             <item
@@ -84,8 +84,8 @@
 
             <item
                 android:orderInCategory="3"
-                android:id="@+id/action_delete_subject"
-                android:title="Delete subject"
+                android:id="@+id/action_delete_course"
+                android:title="Delete course"
                 app:showAsAction="never" />
 
         </menu>
