@@ -32,7 +32,7 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
 
     private Toast mToast;
     private RVAdapter mAdapter;
-    private List<Integer> tempdata = new ArrayList<>();
+    private List<Integer> fYearData = new ArrayList<>();
     private CourseYearViewModel mYearViewModel;
 
     @Nullable
@@ -41,12 +41,12 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
         final View view = inflater.inflate(R.layout.fragment_grades, container, false);
 
         // making fake data
-//        if (tempdata.isEmpty()) {
-//            tempdata.add(2000);
-//            tempdata.add(2001);
-//            tempdata.add(2002);
-//            tempdata.add(2003);
-//            tempdata.add(2004);
+//        if (fYearData.isEmpty()) {
+//            fYearData.add(2000);
+//            fYearData.add(2001);
+//            fYearData.add(2002);
+//            fYearData.add(2003);
+//            fYearData.add(2004);
 //        }
 
         // Setting the recyclerview
@@ -54,14 +54,14 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
         recyclerView.setAdapter(mAdapter);
-        mAdapter.updateDataInteger(tempdata);
+        mAdapter.updateDataInteger(fYearData);
 
         // Course Year ViewModel
         mYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
         mYearViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> years) {
-                tempdata = years;
+                fYearData = years;
                 mAdapter.updateDataInteger(years);
             }
         });
@@ -95,12 +95,12 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
             mToast.cancel();
         }
 
-        String toastMessage = "Item #" + clickedItemIndex + " clicked.";
+        String toastMessage = "Item " + fYearData.get(clickedItemIndex) + " was clicked.";
         mToast = Toast.makeText(this.getContext(), toastMessage, Toast.LENGTH_SHORT);
         mToast.show();
 
         Bundle bundle = new Bundle();
-        bundle.putString("selected", Integer.toString(tempdata.get(clickedItemIndex)));
+        bundle.putString("selected", Integer.toString(fYearData.get(clickedItemIndex)));
 
 //        Navigation.findNavController(view).navigate(R.id.action_nav_grades_to_gradesTermFragment, bundle);
     }

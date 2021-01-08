@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gpacalculator.R;
+import com.example.gpacalculator.viewmodels.CourseTermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -27,43 +28,50 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
 
     private Toast mToast;
     private RVAdapter mAdapter;
-    private ArrayList<String> tempdata = new ArrayList<>();
+    private ArrayList<String> fTermData = new ArrayList<>();
+    private CourseTermViewModel mTermViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_grades_term, container, false);
 
+
+        // making fake data
+//        if (fTermData.isEmpty()) {
+//            String tempvar = getArguments().getString("selected");
+//            switch (tempvar) {
+//                case "2000":
+//                    fTermData.add("1A");
+//                    break;
+//                case "2001":
+//                    fTermData.add("2A");
+//                    break;
+//                case "2002":
+//                    fTermData.add("3A");
+//                    break;
+//                case "2003":
+//                    fTermData.add("4A");
+//                    break;
+//                case "2004":
+//                    fTermData.add("5A");
+//                    break;
+//            }
+//        }
+
+        // Setting the recyclerview
+        mAdapter = new RVAdapter(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
         recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
 
-        mAdapter = new RVAdapter(this);
-
-        if (tempdata.isEmpty()) {
-            String tempvar = getArguments().getString("selected");
-            switch (tempvar) {
-                case "2000":
-                    tempdata.add("1A");
-                    break;
-                case "2001":
-                    tempdata.add("2A");
-                    break;
-                case "2002":
-                    tempdata.add("3A");
-                    break;
-                case "2003":
-                    tempdata.add("4A");
-                    break;
-                case "2004":
-                    tempdata.add("5A");
-                    break;
-            }
-        }
 
 
-        mAdapter.updateDataString(tempdata);
+
+        mAdapter.updateDataString(fTermData);
         recyclerView.setAdapter(mAdapter);
 
+
+        // Setting the floating button
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,8 +82,8 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
                 mToast = Toast.makeText(view.getContext(), "Added one", Toast.LENGTH_SHORT);
                 mToast.show();
 
-                tempdata.add(Integer.toString(tempdata.size() + 1));
-                mAdapter.updateDataString(tempdata);
+                fTermData.add(Integer.toString(fTermData.size() + 1));
+                mAdapter.updateDataString(fTermData);
             }
         });
 
@@ -93,7 +101,7 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
         mToast.show();
 
         Bundle bundle = new Bundle();
-        bundle.putString("selected", tempdata.get(clickedItemIndex));
+        bundle.putString("selected", fTermData.get(clickedItemIndex));
 
         Navigation
                 .findNavController(view)

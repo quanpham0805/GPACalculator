@@ -58,7 +58,7 @@ public class AddYearFragment extends Fragment {
                         Toast.makeText(getContext(), "Entry already existed", Toast.LENGTH_SHORT).show();
                     else {
                         CourseYearEntity courseYearEntity = new CourseYearEntity(mYear);
-                        courseYearViewModel.insertLocation(courseYearEntity);
+                        courseYearViewModel.insertYear(courseYearEntity);
 
                         Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.action_action_add_year_to_nav_grades);

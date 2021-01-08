@@ -11,13 +11,15 @@ import java.util.List;
 public interface CourseTermDao {
 
     @Query("SELECT * FROM course_term ORDER BY id ASC")
-    LiveData<List<CourseTermEntity>> readAllData();
+    LiveData<List<CourseTermEntity>> loadAllData();
 
     @Query("SELECT DISTINCT(term) FROM course_term ORDER BY id ASC")
-    LiveData<List<String>> readAllTerm();
+    LiveData<List<String>> loadAllTerm();
+
+    @Query("SELECT EXISTS(SELECT 1 FROM course_term WHERE term = :term)")
+    LiveData<Boolean> termExisted(String term);
 
     @Insert
     void insertTerm(CourseTermEntity courseTermEntity);
-
 
 }

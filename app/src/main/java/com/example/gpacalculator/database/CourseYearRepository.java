@@ -1,5 +1,7 @@
 package com.example.gpacalculator.database;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
@@ -16,13 +18,13 @@ public class CourseYearRepository {
     // Since AsyncTask is deprecated, we use this instead
     private final Executor executor = Executors.newSingleThreadExecutor();
 
-    public CourseYearRepository(CourseYearDao courseYearDao) {
-        this.courseYearDao = courseYearDao;
-        this.readAllData = courseYearDao.loadAllData();
-        this.readAllYear = courseYearDao.loadAllYear();
+    public CourseYearRepository(Application application) {
+        courseYearDao = MainDatabase.getInstance(application).courseYearDao();
+        readAllData = courseYearDao.loadAllData();
+        readAllYear = courseYearDao.loadAllYear();
     }
 
-    public void addLocation(final CourseYearEntity courseYearEntity) {
+    public void addYear(final CourseYearEntity courseYearEntity) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -33,7 +35,7 @@ public class CourseYearRepository {
 
     // fake doInBackground
     protected void doInBackground(CourseYearEntity courseYearEntity) {
-        courseYearDao.insertLocation(courseYearEntity);
+        courseYearDao.insertYear(courseYearEntity);
     }
 
     public LiveData<List<CourseYearEntity>> getReadAllData() {
@@ -42,10 +44,6 @@ public class CourseYearRepository {
 
     public LiveData<List<Integer>> getReadAllYear() {
         return readAllYear;
-    }
-
-    public CourseYearDao getmCourseYearDao() {
-        return courseYearDao;
     }
 
     public LiveData<Boolean> getYearExisted(int year) {
