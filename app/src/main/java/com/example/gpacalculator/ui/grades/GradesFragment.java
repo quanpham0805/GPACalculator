@@ -21,8 +21,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gpacalculator.R;
-import com.example.gpacalculator.database.SubjectLocationEntity;
-import com.example.gpacalculator.viewmodels.GradesViewModel;
+import com.example.gpacalculator.database.CourseYearEntity;
+import com.example.gpacalculator.viewmodels.CourseYearViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
     private Toast mToast;
     private RVAdapter mAdapter;
     private List<Integer> tempdata = new ArrayList<>();
-    private GradesViewModel mYearViewModel;
+    private CourseYearViewModel mYearViewModel;
 
     @Nullable
     @Override
@@ -56,8 +56,8 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
         recyclerView.setAdapter(mAdapter);
         mAdapter.updateDataInteger(tempdata);
 
-        // Subject location ViewModel
-        mYearViewModel = new ViewModelProvider(this).get(GradesViewModel.class);
+        // Course Year ViewModel
+        mYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
         mYearViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> years) {

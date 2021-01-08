@@ -6,31 +6,31 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.gpacalculator.database.CourseYearDao;
+import com.example.gpacalculator.database.CourseYearEntity;
 import com.example.gpacalculator.database.MainDatabase;
-import com.example.gpacalculator.database.SubjectLocationDAO;
-import com.example.gpacalculator.database.SubjectLocationEntity;
 import com.example.gpacalculator.database.CourseYearRepository;
 
 import java.util.List;
 
-public class GradesViewModel extends AndroidViewModel {
+public class CourseYearViewModel extends AndroidViewModel {
 
-    private LiveData<List<SubjectLocationEntity>> readAllData;
+    private LiveData<List<CourseYearEntity>> readAllData;
     private LiveData<List<Integer>> readAllYear;
-    private SubjectLocationDAO subjectLocationDao;
+    private CourseYearDao courseYearDao;
     private CourseYearRepository repository;
 
-    public GradesViewModel(@NonNull Application application) {
+    public CourseYearViewModel(@NonNull Application application) {
         super(application);
 
 
-        this.subjectLocationDao = MainDatabase.getInstance(application).subjectLocationDAO();
-        this.repository = new CourseYearRepository(this.subjectLocationDao);
+        this.courseYearDao = MainDatabase.getInstance(application).courseYearDao();
+        this.repository = new CourseYearRepository(this.courseYearDao);
         this.readAllData = this.repository.getReadAllData();
         this.readAllYear = this.repository.getReadAllYear();
     }
 
-    public LiveData<List<SubjectLocationEntity>> getReadAllData() {
+    public LiveData<List<CourseYearEntity>> getReadAllData() {
         return readAllData;
     }
 
@@ -42,7 +42,7 @@ public class GradesViewModel extends AndroidViewModel {
         return repository.getYearExisted(year);
     }
 
-    public void insertLocation(SubjectLocationEntity subjectLocationEntity) {
-        repository.addLocation(subjectLocationEntity);
+    public void insertLocation(CourseYearEntity courseYearEntity) {
+        repository.addLocation(courseYearEntity);
     }
 }

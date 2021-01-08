@@ -1,13 +1,11 @@
 package com.example.gpacalculator.ui.add;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,12 +16,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.gpacalculator.R;
-import com.example.gpacalculator.database.SubjectLocationEntity;
-import com.example.gpacalculator.viewmodels.GradesViewModel;
+import com.example.gpacalculator.database.CourseYearEntity;
+import com.example.gpacalculator.viewmodels.CourseYearViewModel;
 
 public class AddYearFragment extends Fragment {
 
-    private GradesViewModel gradesViewModel;
+    private CourseYearViewModel courseYearViewModel;
 
     @Nullable
     @Override
@@ -33,7 +31,7 @@ public class AddYearFragment extends Fragment {
 //        TextView textView = view.findViewById(R.id.text_add_year);
 //        textView.setText("This is add year fragment");
 
-        gradesViewModel = new ViewModelProvider(this).get(GradesViewModel.class);
+        courseYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
 
         Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -52,15 +50,15 @@ public class AddYearFragment extends Fragment {
         if (year != null && isParsable(year.getText().toString())) {
             final int mYear = Integer.parseInt(year.getText().toString());
 
-            gradesViewModel.checkYearExisted(mYear).observe(this, new Observer<Boolean>() {
+            courseYearViewModel.checkYearExisted(mYear).observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(Boolean aBoolean) {
                     // existed
                     if (aBoolean)
                         Toast.makeText(getContext(), "Entry already existed", Toast.LENGTH_SHORT).show();
                     else {
-                        SubjectLocationEntity subjectLocationEntity = new SubjectLocationEntity(mYear, "", "", -1);
-                        gradesViewModel.insertLocation(subjectLocationEntity);
+                        CourseYearEntity courseYearEntity = new CourseYearEntity(mYear);
+                        courseYearViewModel.insertLocation(courseYearEntity);
 
                         Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
                         Navigation.findNavController(view).navigate(R.id.action_action_add_year_to_nav_grades);
