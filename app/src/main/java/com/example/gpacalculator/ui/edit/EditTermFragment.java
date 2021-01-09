@@ -19,9 +19,6 @@ public class EditTermFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_term, container, false);
 
-        TextView textView = view.findViewById(R.id.text_edit_term);
-        textView.setText("This is edit term fragment");
-
         return view;
     }
 }

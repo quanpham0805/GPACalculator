@@ -19,9 +19,6 @@ public class EditYearFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_year, container, false);
 
-        TextView textView = view.findViewById(R.id.text_edit_year);
-        textView.setText("This is edit year fragment");
-
         return view;
     }
 }
