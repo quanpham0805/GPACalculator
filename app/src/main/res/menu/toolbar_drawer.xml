@@ -53,11 +53,11 @@
                 android:title="Edit course"
                 app:showAsAction="never" />
 
-            <item
-                android:orderInCategory="4"
-                android:id="@+id/action_edit_profile"
-                android:title="Edit profile"
-                app:showAsAction="never" />
+<!--            <item-->
+<!--                android:orderInCategory="4"-->
+<!--                android:id="@+id/action_edit_profile"-->
+<!--                android:title="Edit profile"-->
+<!--                app:showAsAction="never" />-->
 
         </menu>
 
