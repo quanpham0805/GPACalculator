@@ -23,6 +23,14 @@ public interface CourseTermDao {
     @Query("SELECT DISTINCT(id) FROM course_year WHERE year = :year")
     LiveData<Integer> getYearIdFromYear(int year);
 
+    @Transaction
+    @Query("SELECT term FROM course_term WHERE yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)")
+    LiveData<List<String>> getTermFromYear(int year);
+
+    @Transaction
+    @Query("DELETE FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)")
+    void deleteTermByTermAndYear(String term, int year);
+
     @Query("SELECT term FROM course_term WHERE yearId = :yearId")
     LiveData<List<String>> getTermFromYearId(int yearId);
 

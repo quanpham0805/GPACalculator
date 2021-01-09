@@ -43,6 +43,15 @@ public class CourseTermRepository {
         courseTermDao.insertTerm(courseTermEntity);
     }
 
+    public void deleteTermByTermAndYear(final String term, final int year) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                courseTermDao.deleteTermByTermAndYear(term, year);
+            }
+        });
+    }
+
     public LiveData<List<CourseTermEntity>> getReadAllData() {
         return readAllData;
     }
@@ -61,5 +70,9 @@ public class CourseTermRepository {
 
     public LiveData<List<String>> getTermFromYearId(int yearId) {
         return courseTermDao.getTermFromYearId(yearId);
+    }
+
+    public LiveData<List<String>> getTermFromYear(int year) {
+        return courseTermDao.getTermFromYear(year);
     }
 }

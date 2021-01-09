@@ -47,6 +47,14 @@ public class CourseTermViewModel extends AndroidViewModel {
         return repository.getYearIdFromYear(year);
     }
 
+    public LiveData<List<String>> getTermFromYear(int year) {
+        return repository.getTermFromYear(year);
+    }
+
+    public void deleteTermByTermAndYear(String term, int year) {
+        repository.deleteTermByTermAndYear(term, year);
+    }
+
     public void insertTerm(CourseTermEntity courseTermEntity) {
         repository.addTerm(courseTermEntity);
     }

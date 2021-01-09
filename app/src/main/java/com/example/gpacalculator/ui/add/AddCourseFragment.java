@@ -48,6 +48,7 @@ public class AddCourseFragment extends Fragment {
 
         // setting up spinner with year, term live data
         // TODO: change focus of the spinner maybe nicer?
+        // TODO: might wanna clear stack instead of just navigate to grades
         spinner_year = (Spinner) view.findViewById(R.id.spinner_year);
         spinner_term = (Spinner) view.findViewById(R.id.spinner_term);
         courseViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
