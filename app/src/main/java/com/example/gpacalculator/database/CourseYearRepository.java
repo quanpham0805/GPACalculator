@@ -33,9 +33,22 @@ public class CourseYearRepository {
         });
     }
 
+    public void deleteYearByYear(final int year) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                courseYearDao.deleteYearByYear(year);
+            }
+        });
+    }
+
     // fake doInBackground
     protected void doInBackground(CourseYearEntity courseYearEntity) {
         courseYearDao.insertYear(courseYearEntity);
+    }
+
+    public LiveData<Integer> getYearIdFromYear(int year) {
+        return courseYearDao.getYearIdFromYear(year);
     }
 
     public LiveData<List<CourseYearEntity>> getReadAllData() {

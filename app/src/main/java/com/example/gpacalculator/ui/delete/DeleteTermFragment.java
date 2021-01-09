@@ -19,8 +19,6 @@ public class DeleteTermFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delete_term, container, false);
 
-        TextView textView = view.findViewById(R.id.text_delete_term);
-        textView.setText("This is delete term fragment");
 
         return view;
     }

@@ -33,11 +33,19 @@ public class CourseYearViewModel extends AndroidViewModel {
         return readAllYear;
     }
 
+    public LiveData<Integer> getYearIdFromYear(int year) {
+        return repository.getYearIdFromYear(year);
+    }
+
     public LiveData<Boolean> checkYearExisted(int year) {
         return repository.getYearExisted(year);
     }
 
     public void insertYear(CourseYearEntity courseYearEntity) {
         repository.addYear(courseYearEntity);
+    }
+
+    public void deleteYearByYear(int year) {
+        repository.deleteYearByYear(year);
     }
 }

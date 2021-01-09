@@ -19,8 +19,6 @@ public class DeleteCourseFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delete_course, container, false);
 
-        TextView textView = view.findViewById(R.id.text_delete_course);
-        textView.setText("This is delete course fragment");
 
         return view;
     }
