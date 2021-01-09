@@ -40,15 +40,6 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_grades, container, false);
 
-        // making fake data
-//        if (fYearData.isEmpty()) {
-//            fYearData.add(2000);
-//            fYearData.add(2001);
-//            fYearData.add(2002);
-//            fYearData.add(2003);
-//            fYearData.add(2004);
-//        }
-
         // Setting the recyclerview
         mAdapter = new RVAdapter(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
@@ -100,7 +91,7 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
         mToast.show();
 
         Bundle bundle = new Bundle();
-        bundle.putInt("selected", fYearData.get(clickedItemIndex));
+        bundle.putInt("year", fYearData.get(clickedItemIndex));
 
         Navigation.findNavController(view).navigate(R.id.action_nav_grades_to_gradesTermFragment, bundle);
     }

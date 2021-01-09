@@ -1,5 +1,6 @@
 package com.example.gpacalculator.ui.add;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -44,17 +45,13 @@ public class AddTermFragment extends Fragment {
         courseTermViewModel = new ViewModelProvider(this).get(CourseTermViewModel.class);
 
         // setting up spinner with year live data
+        spinner = (Spinner) view.findViewById(R.id.spinner);
         courseTermViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> integers) {
                 readAllYear = integers;
-                spinner = (Spinner) view.findViewById(R.id.spinner);
-                if (integers == null || integers.size() == 0) {
-                    List<String> nullCase = new ArrayList<>();
-                    nullCase.add("Empty, please add year first");
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, nullCase);
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    spinner.setAdapter(adapter);
+                if (readAllYear == null || readAllYear.size() == 0) {
+                    spinner.setAdapter(setUpNullCaseAdapter("Empty, please add year first", getContext()));
                 } else {
                     ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, readAllYear);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -76,6 +73,14 @@ public class AddTermFragment extends Fragment {
         return view;
     }
 
+    private ArrayAdapter<String> setUpNullCaseAdapter(String msg, Context context) {
+        List<String> nullCase = new ArrayList<>();
+        nullCase.add(msg);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, nullCase);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        return adapter;
+    }
+
     private void insertDataToDatabase(final View view) {
         String year = spinner.getSelectedItem().toString();
         EditText term = (EditText) view.findViewById(R.id.term_field);
@@ -92,7 +97,7 @@ public class AddTermFragment extends Fragment {
                         public void onChanged(Boolean aBoolean) {
                             // existed
                             if (aBoolean) {
-                                Toast.makeText(getContext(), "Entry already created", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Entry already existed", Toast.LENGTH_SHORT).show();
                             } else {
                                 CourseTermEntity courseTermEntity = new CourseTermEntity(mTerm, yearId);
                                 courseTermViewModel.insertTerm(courseTermEntity);
@@ -100,7 +105,7 @@ public class AddTermFragment extends Fragment {
                                 Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
 
                                 Bundle bundle = new Bundle();
-                                bundle.putInt("selected", mYear);
+                                bundle.putInt("year", mYear);
 
                                 // Navigate back to GradesTermFragment
                                 // However, to prevent making a loop, we need to consider 2 cases:

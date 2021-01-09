@@ -17,19 +17,18 @@ public interface CourseTermDao {
     @Query("SELECT DISTINCT(term) FROM course_term ORDER BY id ASC")
     LiveData<List<String>> loadAllTerm();
 
-    @Query("SELECT DISTINCT(id) FROM course_year WHERE year = :year")
-    LiveData<Integer> getYearIdFromYear(int year);
-
     @Query("SELECT DISTINCT(year) FROM course_year ORDER BY id ASC")
     LiveData<List<Integer>> loadAllYear();
 
-    @Transaction
-    @Query("SELECT EXISTS(SELECT 1 FROM course_term WHERE term = :term AND yearId = :yearId)")
-    LiveData<Boolean> termExisted(String term, int yearId);
+    @Query("SELECT DISTINCT(id) FROM course_year WHERE year = :year")
+    LiveData<Integer> getYearIdFromYear(int year);
 
     @Query("SELECT term FROM course_term WHERE yearId = :yearId")
     LiveData<List<String>> getTermFromYearId(int yearId);
 
+    @Transaction
+    @Query("SELECT EXISTS(SELECT 1 FROM course_term WHERE term = :term AND yearId = :yearId)")
+    LiveData<Boolean> termExisted(String term, int yearId);
 
     @Insert
     void insertTerm(CourseTermEntity courseTermEntity);

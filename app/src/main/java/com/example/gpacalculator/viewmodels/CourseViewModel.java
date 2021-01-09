@@ -15,6 +15,8 @@ public class CourseViewModel extends AndroidViewModel {
 
     private LiveData<List<CourseEntity>> readAllData;
     private LiveData<List<String>> readAllCourse;
+    private LiveData<List<String>> readAllTerm;
+    private LiveData<List<Integer>> readAllYear;
     private CourseRepository repository;
 
     public CourseViewModel(@NonNull Application application) {
@@ -23,6 +25,8 @@ public class CourseViewModel extends AndroidViewModel {
         this.repository = new CourseRepository(application);
         this.readAllData = this.repository.getReadAllData();
         this.readAllCourse = this.repository.getReadAllCourse();
+        this.readAllTerm = this.repository.getReadAllTerm();
+        this.readAllYear = this.repository.getReadAllYear();
     }
 
     public LiveData<List<CourseEntity>> getReadAllData() {
@@ -33,7 +37,31 @@ public class CourseViewModel extends AndroidViewModel {
         return readAllCourse;
     }
 
-    public LiveData<Boolean> checkCourseExisted(String course) {
-        return repository.checkCourseExisted(course);
+    public LiveData<List<String>> getAllTerm() {
+        return readAllTerm;
+    }
+
+    public LiveData<List<Integer>> getAllYear() {
+        return readAllYear;
+    }
+
+    public LiveData<Boolean> checkCourseExisted(String course, int termId) {
+        return repository.checkCourseExisted(course, termId);
+    }
+
+    public LiveData<List<String>> getCourseFromTermId(int termId) {
+        return repository.getCourseFromTermId(termId);
+    }
+
+    public void insertCourse(CourseEntity courseEntity) {
+        repository.addCourse(courseEntity);
+    }
+
+    public LiveData<Integer> getTermIdFromTermAndYear(String term, int year) {
+        return repository.getTermIdFromTermAndYear(term, year);
+    }
+
+    public LiveData<List<String>> getTermFromYear(int year) {
+        return repository.getTermFromYear(year);
     }
 }

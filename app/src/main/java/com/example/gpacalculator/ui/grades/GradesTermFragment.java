@@ -33,35 +33,14 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
     private RVAdapter mAdapter;
     private List<String> fTermData = new ArrayList<>();
     private CourseTermViewModel mTermViewModel;
+    private int tYear;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_grades_term, container, false);
 
-        int tYear = getArguments().getInt("selected");
-
-        // making fake data
-//        if (fTermData.isEmpty()) {
-//            String tempvar = getArguments().getString("selected");
-//            switch (tempvar) {
-//                case "2000":
-//                    fTermData.add("1A");
-//                    break;
-//                case "2001":
-//                    fTermData.add("2A");
-//                    break;
-//                case "2002":
-//                    fTermData.add("3A");
-//                    break;
-//                case "2003":
-//                    fTermData.add("4A");
-//                    break;
-//                case "2004":
-//                    fTermData.add("5A");
-//                    break;
-//            }
-//        }
+        tYear = getArguments().getInt("year");
 
         // Setting the recyclerview
         mAdapter = new RVAdapter(this);
@@ -106,7 +85,6 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
 
 
     // setting click behavior for list item click
-    // TODO: move to next fragment
     @Override
     public void onListItemClick(int clickedItemIndex, View view) {
         if (mToast != null) {
@@ -118,11 +96,12 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
         mToast.show();
 
         Bundle bundle = new Bundle();
-        bundle.putString("selected", fTermData.get(clickedItemIndex));
+        bundle.putString("term", fTermData.get(clickedItemIndex));
+        bundle.putInt("year", tYear);
 
-//        Navigation
-//                .findNavController(view)
-//                .navigate(R.id.action_gradesTermFragment_to_gradesCourseFragment, bundle);
+        Navigation
+                .findNavController(view)
+                .navigate(R.id.action_gradesTermFragment_to_gradesCourseFragment, bundle);
     }
 
     @Override
