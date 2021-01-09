@@ -40,5 +40,8 @@ public interface CourseDao {
     @Insert
     void insertCourse(CourseEntity courseEntity);
 
-
+    // custom deletion
+    @Transaction
+    @Query("DELETE FROM course WHERE course = :course AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year))")
+    void deleteCourseByCourseAndTermAndYear(String course, String term, int year);
 }

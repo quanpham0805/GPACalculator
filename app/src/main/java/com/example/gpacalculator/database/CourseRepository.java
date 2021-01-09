@@ -72,4 +72,14 @@ public class CourseRepository {
     public LiveData<List<String>> getTermFromYear(int year) {
         return courseDao.getTermFromYear(year);
     }
+
+    public void deleteCourseByCourseAndTermAndYear(final String course, final String term, final int year) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                courseDao.deleteCourseByCourseAndTermAndYear(course, term, year);
+            }
+        });
+
+    }
 }

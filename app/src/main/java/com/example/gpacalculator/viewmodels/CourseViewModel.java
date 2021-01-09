@@ -64,4 +64,8 @@ public class CourseViewModel extends AndroidViewModel {
     public LiveData<List<String>> getTermFromYear(int year) {
         return repository.getTermFromYear(year);
     }
+
+    public void deleteCourseByCourseAndTermAndYear(String course, String term, int year) {
+        repository.deleteCourseByCourseAndTermAndYear(course, term, year);
+    }
 }
