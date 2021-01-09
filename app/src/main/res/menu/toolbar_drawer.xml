@@ -8,21 +8,27 @@
         app:showAsAction="never">
         <menu>
             <item
-                android:orderInCategory="1"
                 android:id="@+id/action_add_year"
+                android:orderInCategory="1"
                 android:title="Add year"
                 app:showAsAction="never" />
 
             <item
-                android:orderInCategory="2"
                 android:id="@+id/action_add_term"
+                android:orderInCategory="2"
                 android:title="Add term"
                 app:showAsAction="never" />
 
             <item
-                android:orderInCategory="3"
                 android:id="@+id/action_add_course"
+                android:orderInCategory="3"
                 android:title="Add course"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/action_add_course_detail"
+                android:orderInCategory="4"
+                android:title="Add mark"
                 app:showAsAction="never" />
 
         </menu>
@@ -36,28 +42,28 @@
 
         <menu>
             <item
-                android:orderInCategory="1"
                 android:id="@+id/action_edit_year"
+                android:orderInCategory="1"
                 android:title="Edit year"
                 app:showAsAction="never" />
 
             <item
-                android:orderInCategory="2"
                 android:id="@+id/action_edit_term"
+                android:orderInCategory="2"
                 android:title="Edit term"
                 app:showAsAction="never" />
 
             <item
-                android:orderInCategory="3"
                 android:id="@+id/action_edit_course"
+                android:orderInCategory="3"
                 android:title="Edit course"
                 app:showAsAction="never" />
 
-<!--            <item-->
-<!--                android:orderInCategory="4"-->
-<!--                android:id="@+id/action_edit_profile"-->
-<!--                android:title="Edit profile"-->
-<!--                app:showAsAction="never" />-->
+            <!--            <item-->
+            <!--                android:orderInCategory="4"-->
+            <!--                android:id="@+id/action_edit_profile"-->
+            <!--                android:title="Edit profile"-->
+            <!--                app:showAsAction="never" />-->
 
         </menu>
 
@@ -71,20 +77,20 @@
 
         <menu>
             <item
-                android:orderInCategory="1"
                 android:id="@+id/action_delete_year"
+                android:orderInCategory="1"
                 android:title="Delete year"
                 app:showAsAction="never" />
 
             <item
-                android:orderInCategory="2"
                 android:id="@+id/action_delete_term"
+                android:orderInCategory="2"
                 android:title="Delete term"
                 app:showAsAction="never" />
 
             <item
-                android:orderInCategory="3"
                 android:id="@+id/action_delete_course"
+                android:orderInCategory="3"
                 android:title="Delete course"
                 app:showAsAction="never" />
 

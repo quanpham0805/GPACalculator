@@ -57,6 +57,9 @@
         <action
             android:id="@+id/action_gradesCourseFragment_to_action_add_course"
             app:destination="@id/action_add_course" />
+        <action
+            android:id="@+id/action_gradesCourseFragment_to_gradesCourseDetailFragment"
+            app:destination="@id/gradesCourseDetailFragment" />
     </fragment>
 
     <!--    -->
@@ -153,5 +156,12 @@
         android:name="com.example.gpacalculator.ui.edit.EditYearFragment"
         android:label="Edit year"
         tools:layout="@layout/fragment_edit_year" />
+
+    <!--    -->
+    <fragment
+        android:id="@+id/gradesCourseDetailFragment"
+        android:name="com.example.gpacalculator.ui.grades.GradesCourseDetailFragment"
+        android:label="Course detail"
+        tools:layout="@layout/fragment_grades_course_details" />
 
 </navigation>
