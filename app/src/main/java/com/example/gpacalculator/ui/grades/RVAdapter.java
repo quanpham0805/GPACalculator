@@ -16,23 +16,29 @@ import java.util.List;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
 
     private final ListItemClickListener mOnClickListener;
-    private List<String> RVData;
+    private List<String> RVTitleData;
+    private List<String> RVGradesData;
 
     public RVAdapter(ListItemClickListener listener) {
         this.mOnClickListener = listener;
     }
 
     public class RVViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView listItemView;
+        private TextView titleItemView, gradesItemView;
 
         public RVViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.listItemView = (TextView) itemView.findViewById(R.id.tv_list_item);
+            this.titleItemView = (TextView) itemView.findViewById(R.id.tv_name);
+            this.gradesItemView = (TextView) itemView.findViewById(R.id.tv_gpa);
             itemView.setOnClickListener(this);
         }
 
-        public TextView getTextView() {
-            return this.listItemView;
+        public TextView getTitleTextView() {
+            return this.titleItemView;
+        }
+
+        public TextView getGradesTextView() {
+            return this.gradesItemView;
         }
 
         @Override
@@ -57,38 +63,49 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RVViewHolder holder, int position) {
-        if (RVData != null)
-            holder.getTextView().setText(RVData.get(position));
-        else
-            holder.getTextView().setText("No Data");
+        if (RVTitleData != null) {
+            holder.getTitleTextView().setText(RVTitleData.get(position));
+            holder.getGradesTextView().setText("GPA: " + RVGradesData.get(position));
+        } else {
+            holder.getTitleTextView().setText("No Data");
+            holder.getGradesTextView().setText("GPA: No Data");
+        }
     }
 
     @Override
     public int getItemCount() {
-        if (RVData != null)
-            return RVData.size();
+        if (RVTitleData != null)
+            return RVTitleData.size();
         else return 0;
     }
 
-    public void updateDataInteger(List<Integer> newData) {
-//        if (newData == null) RVData = null;
-//        else {
-//            if (RVData != null) RVData.clear();
-//            else RVData = new ArrayList<>();
-//            for (Integer i : newData) {
-//                RVData.add(Integer.toString(i));
-//            }
+    void updateGradesData(List<Double> newGradesData) {
+        RVGradesData = new ArrayList<>();
+        // TODO: use real data
+//        for (Double i : newGradesData) {
+//            RVGradesData.add(String.format("%.2f", i));
 //        }
-
-        RVData = new ArrayList<>();
-        for (Integer i : newData) {
-            RVData.add(Integer.toString(i));
+        if (RVTitleData != null) {
+            for (int i = 0 ; i < RVTitleData.size() ; i ++) {
+                RVGradesData.add("90.00%");
+            }
         }
+    }
+
+    public void updateDataInteger(List<Integer> newTitleData, List<Double> newGradesData) {
+
+        RVTitleData = new ArrayList<>();
+        for (Integer i : newTitleData) {
+            RVTitleData.add(Integer.toString(i));
+        }
+        updateGradesData(newGradesData);
+
         notifyDataSetChanged();
     }
 
-    public void updateDataString(List<String> newData) {
-        RVData = newData;
+    public void updateDataString(List<String> newTitleData, List<Double> newGradesData) {
+        RVTitleData = newTitleData;
+        updateGradesData(newGradesData);
         notifyDataSetChanged();
     }
 

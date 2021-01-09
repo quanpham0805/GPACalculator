@@ -18,6 +18,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gpacalculator.R;
@@ -32,6 +33,7 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
     private Toast mToast;
     private RVAdapter mAdapter;
     private List<String> fCourseData = new ArrayList<>();
+    private List<Double> fGradesData = new ArrayList<>();
     private CourseViewModel mCourseViewModel;
     private String tTerm;
     private int tYear;
@@ -47,7 +49,7 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
         // Setting the recyclerview
         mAdapter = new RVAdapter(this);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
-        recyclerView.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
 
 
@@ -60,7 +62,7 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
                     @Override
                     public void onChanged(List<String> mCourse) {
                         fCourseData = mCourse;
-                        mAdapter.updateDataString(mCourse);
+                        mAdapter.updateDataString(fCourseData, fGradesData);
                     }
                 });
             }
