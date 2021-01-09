@@ -17,7 +17,10 @@ public class CourseDetailEntity {
     private int id;
 
     private String courseMarkName;
+
+    // TODO: notes will not be available at the moment, will implement later
     private String courseMarkNotes;
+
     private double courseMark;
     private double courseScale;
     private double courseWeight;
