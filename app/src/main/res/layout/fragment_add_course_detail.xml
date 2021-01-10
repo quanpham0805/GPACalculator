@@ -34,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_term" />
 
     <EditText
-        android:id="@+id/edit_title"
+        android:id="@+id/course_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner_course" />
 
     <EditText
-        android:id="@+id/edit_grade"
+        android:id="@+id/course_grade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -57,10 +57,10 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+        app:layout_constraintTop_toBottomOf="@+id/course_title" />
 
     <EditText
-        android:id="@+id/edit_weight"
+        android:id="@+id/course_weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -70,7 +70,7 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_grade" />
+        app:layout_constraintTop_toBottomOf="@+id/course_grade" />
 
     <Spinner
         android:id="@+id/spinner_scale"
@@ -79,7 +79,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_weight" />
+        app:layout_constraintTop_toBottomOf="@+id/course_weight" />
 
     <Button
         android:id="@+id/button"

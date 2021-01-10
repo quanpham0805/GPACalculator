@@ -21,7 +21,7 @@ public class CourseDetailRepository {
         readAllData = courseDetailDao.loadAllDetail();
     }
 
-    void addDetail(final CourseDetailEntity courseDetailEntity) {
+    public void addDetail(final CourseDetailEntity courseDetailEntity) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -44,5 +44,9 @@ public class CourseDetailRepository {
 
     public LiveData<List<String>> getCourseFromTermAndYear(String term, int year) {
         return courseDetailDao.getCourseFromTermAndYear(term, year);
+    }
+
+    public LiveData<Integer> getCourseIdFromCourseAndTermAndYear(String course, String term, int year) {
+        return courseDetailDao.getCourseIdFromCourseAndTermAndYear(course, term, year);
     }
 }

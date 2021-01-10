@@ -156,6 +156,10 @@ public class DeleteCourseFragment extends Fragment {
                 Toast.makeText(getContext(), "Deleted one", Toast.LENGTH_SHORT).show();
             }
 
+        } else {
+            Toast.makeText(this.getContext(),
+                    "Some fields are not correct",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 

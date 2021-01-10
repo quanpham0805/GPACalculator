@@ -26,6 +26,10 @@ public interface CourseDetailDao {
     @Query("SELECT course FROM course WHERE termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year))")
     LiveData<List<String>> getCourseFromTermAndYear(String term, int year);
 
+    @Transaction
+    @Query("SELECT id FROM course WHERE course = :course AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year))")
+    LiveData<Integer> getCourseIdFromCourseAndTermAndYear(String course, String term, int year);
+
     @Insert
     void insertDetail(CourseDetailEntity courseDetailEntity);
 

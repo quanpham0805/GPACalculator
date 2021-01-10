@@ -14,7 +14,6 @@ import java.util.List;
 public class CourseDetailViewModel extends AndroidViewModel {
 
     private CourseDetailRepository repository;
-    private LiveData<List<CourseDetailEntity>> readAllData;
 
     public CourseDetailViewModel(@NonNull Application application) {
         super(application);
@@ -22,7 +21,11 @@ public class CourseDetailViewModel extends AndroidViewModel {
         this.repository = new CourseDetailRepository(application);
     }
 
-    public LiveData<List<Integer>> loadAllYear() {
+    public void addDetail(CourseDetailEntity courseDetailEntity) {
+        repository.addDetail(courseDetailEntity);
+    }
+
+    public LiveData<List<Integer>> getAllYear() {
         return repository.loadAllYear();
     }
 
@@ -32,5 +35,9 @@ public class CourseDetailViewModel extends AndroidViewModel {
 
     public LiveData<List<String>> getCourseFromTermAndYear(String term, int year) {
         return repository.getCourseFromTermAndYear(term, year);
+    }
+
+    public LiveData<Integer> getCourseIdFromCourseAndTermAndYear(String course, String term, int year) {
+        return repository.getCourseIdFromCourseAndTermAndYear(course, term, year);
     }
 }
