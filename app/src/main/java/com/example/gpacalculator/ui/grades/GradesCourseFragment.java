@@ -1,6 +1,7 @@
 package com.example.gpacalculator.ui.grades;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gpacalculator.R;
+import com.example.gpacalculator.database.CourseDetailEntity;
+import com.example.gpacalculator.database.CourseEntity;
 import com.example.gpacalculator.viewmodels.CourseViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,7 +36,7 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
     private Toast mToast;
     private RVAdapter mAdapter;
     private List<String> fCourseData = new ArrayList<>();
-    private List<Double> fGradesData = new ArrayList<>();
+    private List<Pair<Double, Double>> fGradesData = new ArrayList<>();
     private CourseViewModel mCourseViewModel;
     private String tTerm;
     private int tYear;
@@ -58,11 +61,18 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
         mCourseViewModel.getTermIdFromTermAndYear(tTerm, tYear).observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer newTermId) {
-                mCourseViewModel.getCourseFromTermId(newTermId).observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+                mCourseViewModel.getBigCourseFromTermId(newTermId).observe(getViewLifecycleOwner(), new Observer<List<CourseEntity>>() {
                     @Override
-                    public void onChanged(List<String> mCourse) {
-                        fCourseData = mCourse;
-                        mAdapter.updateDataString(fCourseData, fGradesData);
+                    public void onChanged(final List<CourseEntity> mCourse) {
+                        fCourseData = mCourseViewModel.extractCourse(mCourse);
+                        mCourseViewModel.loadAllDetailFromListCourseTermYear(fCourseData, tTerm, tYear).observe(getViewLifecycleOwner(), new Observer<List<CourseDetailEntity>>() {
+                            @Override
+                            public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
+                                CalculateGPA calculateGPA = new CalculateGPA(mCourse, courseDetailEntities);
+                                fGradesData = calculateGPA.getCourseGPA();
+                                mAdapter.updateDataString(fCourseData, fGradesData);
+                            }
+                        });
                     }
                 });
             }

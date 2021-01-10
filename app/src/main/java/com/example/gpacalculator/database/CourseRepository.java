@@ -73,6 +73,14 @@ public class CourseRepository {
         return courseDao.getTermFromYear(year);
     }
 
+    public LiveData<List<CourseEntity>> getBigCourseFromTermId(int termId) {
+        return courseDao.getBigCourseFromTermId(termId);
+    }
+
+    public LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseTermYear(List<String> courses, String term, int year) {
+        return courseDao.loadAllDetailFromListCourseTermYear(courses, term, year);
+    }
+
     public void deleteCourseByCourseAndTermAndYear(final String course, final String term, final int year) {
         executor.execute(new Runnable() {
             @Override

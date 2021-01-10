@@ -1,6 +1,7 @@
 package com.example.gpacalculator.ui.grades;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,7 +34,7 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
     private Toast mToast;
     private RVAdapter mAdapter;
     private List<String> fTermData = new ArrayList<>();
-    private List<Double> fGradesData = new ArrayList<>();
+    private List<Pair<Double, Double>> fGradesData = null;
     private CourseTermViewModel mTermViewModel;
     private int tYear;
 

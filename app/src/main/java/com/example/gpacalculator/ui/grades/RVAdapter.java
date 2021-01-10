@@ -1,5 +1,6 @@
 package com.example.gpacalculator.ui.grades;
 
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,20 +80,25 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         else return 0;
     }
 
-    void updateGradesData(List<Double> newGradesData) {
+    void updateGradesData(List<Pair<Double, Double>> newGradesData) {
         RVGradesData = new ArrayList<>();
-        // TODO: use real data
-//        for (Double i : newGradesData) {
-//            RVGradesData.add(String.format("%.2f", i));
-//        }
-        if (RVTitleData != null) {
-            for (int i = 0 ; i < RVTitleData.size() ; i ++) {
-                RVGradesData.add("90.00%");
+        if (newGradesData == null) {
+            if (RVTitleData != null) {
+                for (int i = 0 ; i < RVTitleData.size() ; i ++) {
+                    RVGradesData.add("TBD");
+                }
+            }
+        }
+        // real data here
+        else {
+            for (Pair<Double, Double> i : newGradesData) {
+                if (i.first == -1) RVGradesData.add("NO DATA");
+                else RVGradesData.add(String.valueOf(i.first) + "% / " + String.valueOf(i.second));
             }
         }
     }
 
-    public void updateDataInteger(List<Integer> newTitleData, List<Double> newGradesData) {
+    public void updateDataInteger(List<Integer> newTitleData, List<Pair<Double, Double>> newGradesData) {
 
         RVTitleData = new ArrayList<>();
         for (Integer i : newTitleData) {
@@ -103,7 +109,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void updateDataString(List<String> newTitleData, List<Double> newGradesData) {
+    public void updateDataString(List<String> newTitleData, List<Pair<Double, Double>> newGradesData) {
         RVTitleData = newTitleData;
         updateGradesData(newGradesData);
         notifyDataSetChanged();

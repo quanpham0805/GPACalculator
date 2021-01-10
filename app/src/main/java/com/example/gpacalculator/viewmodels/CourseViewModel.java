@@ -6,10 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.gpacalculator.database.CourseDetailEntity;
 import com.example.gpacalculator.database.CourseEntity;
 import com.example.gpacalculator.database.CourseRepository;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class CourseViewModel extends AndroidViewModel {
 
@@ -18,6 +22,9 @@ public class CourseViewModel extends AndroidViewModel {
     private LiveData<List<String>> readAllTerm;
     private LiveData<List<Integer>> readAllYear;
     private CourseRepository repository;
+
+    // Since AsyncTask is deprecated, we use this instead
+    private final Executor executor = Executors.newSingleThreadExecutor();
 
     public CourseViewModel(@NonNull Application application) {
         super(application);
@@ -64,6 +71,23 @@ public class CourseViewModel extends AndroidViewModel {
     public LiveData<List<String>> getTermFromYear(int year) {
         return repository.getTermFromYear(year);
     }
+
+    public LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseTermYear(List<String> courses, String term, int year) {
+        return repository.loadAllDetailFromListCourseTermYear(courses, term, year);
+    }
+
+    public LiveData<List<CourseEntity>> getBigCourseFromTermId(int termId) {
+        return repository.getBigCourseFromTermId(termId);
+    }
+
+    public List<String> extractCourse(List<CourseEntity> courseEntity) {
+        List<String> courses = new ArrayList<>();
+        for (CourseEntity i : courseEntity) {
+            courses.add(i.getCourse());
+        }
+        return courses;
+    }
+
 
     public void deleteCourseByCourseAndTermAndYear(String course, String term, int year) {
         repository.deleteCourseByCourseAndTermAndYear(course, term, year);
