@@ -162,6 +162,20 @@
         android:id="@+id/gradesCourseDetailFragment"
         android:name="com.example.gpacalculator.ui.grades.GradesCourseDetailFragment"
         android:label="Course detail"
-        tools:layout="@layout/fragment_grades_course_details" />
+        tools:layout="@layout/fragment_grades_course_details" >
+        <action
+            android:id="@+id/action_gradesCourseDetailFragment_to_action_add_course_detail"
+            app:destination="@id/action_add_course_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/action_add_course_detail"
+        android:name="com.example.gpacalculator.ui.add.AddCourseDetailFragment"
+        android:label="Add mark"
+        tools:layout="@layout/fragment_add_course_detail" >
+        <action
+            android:id="@+id/action_action_add_course_detail_to_gradesCourseDetailFragment"
+            app:destination="@id/gradesCourseDetailFragment" />
+    </fragment>
 
 </navigation>

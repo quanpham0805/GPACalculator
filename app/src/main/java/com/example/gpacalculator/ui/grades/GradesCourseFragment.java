@@ -104,6 +104,8 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
         bundle.putString("term", tTerm);
         bundle.putString("course", fCourseData.get(clickedItemIndex));
 
+        Navigation.findNavController(view).navigate(R.id.action_gradesCourseFragment_to_gradesCourseDetailFragment, bundle);
+
     }
 
     @Override
