@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static java.lang.Math.round;
+
 public class AddCourseDetailFragment extends Fragment {
 
     private CourseDetailViewModel courseDetailViewModel;
@@ -154,9 +156,9 @@ public class AddCourseDetailFragment extends Fragment {
                             new CourseDetailEntity(
                                     title.getText().toString(),
                                     "",
-                                    Double.parseDouble(grade.getText().toString()),
+                                    round(Double.parseDouble(grade.getText().toString()) * 100.0) / 100.0,
                                     mScale,
-                                    Double.parseDouble(weight.getText().toString()),
+                                    round(Double.parseDouble(weight.getText().toString()) * 100.0) / 100.0,
                                     courseId);
                     courseDetailViewModel.addDetail(courseDetailEntity);
 
