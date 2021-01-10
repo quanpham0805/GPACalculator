@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.gpacalculator.R;
 import com.example.gpacalculator.database.CourseDetailEntity;
@@ -168,6 +170,22 @@ public class AddCourseDetailFragment extends Fragment {
                     bundle.putInt("year", Integer.parseInt(year));
                     bundle.putString("term", term);
                     bundle.putString("course", course);
+
+                    // Navigate back to GradesCourseDetailFragment
+                    // However, to prevent making a loop, we need to consider 2 cases:
+                    // If we arrive at this fragment from grades course detail fragment,
+                    // we need to pop gradesCourseDetailFragment as well.
+                    // Otherwise we only need to pop addCourseDetail
+
+                    NavController navController = Navigation.findNavController(view);
+                    String prevBackStack =  navController.getPreviousBackStackEntry().getDestination().toString();
+
+
+                    if (prevBackStack.contains("gradesCourseDetailFragment")) {
+                        navController.navigate(R.id.action_action_add_course_detail_to_gradesCourseDetailFragment_Detail, bundle);
+                    } else {
+                        navController.navigate(R.id.action_action_add_course_detail_to_gradesCourseDetailFragment_Home, bundle);
+                    }
 
                 }
             });

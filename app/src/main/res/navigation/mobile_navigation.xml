@@ -174,8 +174,15 @@
         android:label="Add mark"
         tools:layout="@layout/fragment_add_course_detail" >
         <action
-            android:id="@+id/action_action_add_course_detail_to_gradesCourseDetailFragment"
-            app:destination="@id/gradesCourseDetailFragment" />
+            android:id="@+id/action_action_add_course_detail_to_gradesCourseDetailFragment_Detail"
+            app:destination="@id/gradesCourseDetailFragment"
+            app:popUpTo="@id/gradesCourseDetailFragment"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_action_add_course_detail_to_gradesCourseDetailFragment_Home"
+            app:destination="@id/gradesCourseDetailFragment"
+            app:popUpTo="@id/action_add_course_detail"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>
