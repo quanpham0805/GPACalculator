@@ -65,48 +65,7 @@ public class DeleteCourseFragment extends Fragment {
                     spinner_year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            courseViewModel.getTermFromYear(Integer.parseInt(spinner_year.getSelectedItem().toString()))
-                                    .observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-                                        @Override
-                                        public void onChanged(List<String> strings) {
-                                            readAllTerm = strings;
-                                            if (readAllTerm == null || readAllTerm.size() == 0) {
-                                                spinner_term.setAdapter(setUpNullCaseAdapter("EMPTY", getContext()));
-                                                spinner_course.setAdapter(setUpNullCaseAdapter("EMPTY", getContext()));
-                                            } else {
-                                                spinner_term.setAdapter(setUpStringAdapter(getContext(), readAllTerm));
-                                                spinner_term.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                                    @Override
-                                                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                                        courseViewModel
-                                                                .getTermIdFromTermAndYear(spinner_term.getSelectedItem().toString(),
-                                                                        Integer.parseInt(spinner_year.getSelectedItem().toString()))
-                                                                .observe(getViewLifecycleOwner(), new Observer<Integer>() {
-                                                                    @Override
-                                                                    public void onChanged(Integer newTermId) {
-                                                                        courseViewModel.getCourseFromTermId(newTermId)
-                                                                                .observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-                                                                                    @Override
-                                                                                    public void onChanged(List<String> mCourse) {
-                                                                                        readAllCourse = mCourse;
-                                                                                        if (readAllCourse == null || readAllCourse.size() == 0)
-                                                                                            spinner_course.setAdapter(setUpNullCaseAdapter("EMPTY", getContext()));
-                                                                                        else
-                                                                                            spinner_course.setAdapter(setUpStringAdapter(getContext(), readAllCourse));
-                                                                                    }
-                                                                                });
-                                                                    }
-                                                                });
-                                                    }
-
-                                                    @Override
-                                                    public void onNothingSelected(AdapterView<?> parent) {
-
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    });
+                            spinnerYearSelectedListener();
                         }
 
                         @Override
@@ -129,6 +88,57 @@ public class DeleteCourseFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void spinnerYearSelectedListener() {
+
+        courseViewModel.getTermFromYear(Integer.parseInt(spinner_year.getSelectedItem().toString()))
+                .observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+                    @Override
+                    public void onChanged(List<String> strings) {
+                        readAllTerm = strings;
+                        if (readAllTerm == null || readAllTerm.size() == 0) {
+                            spinner_term.setAdapter(setUpNullCaseAdapter("EMPTY", getContext()));
+                            spinner_course.setAdapter(setUpNullCaseAdapter("EMPTY", getContext()));
+                        } else {
+                            spinner_term.setAdapter(setUpStringAdapter(getContext(), readAllTerm));
+                            spinner_term.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    spinnerTermSelectedListener();
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+    }
+
+    private void spinnerTermSelectedListener() {
+        courseViewModel
+                .getTermIdFromTermAndYear(spinner_term.getSelectedItem().toString(),
+                        Integer.parseInt(spinner_year.getSelectedItem().toString()))
+                .observe(getViewLifecycleOwner(), new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer newTermId) {
+                        courseViewModel.getCourseFromTermId(newTermId)
+                                .observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+                                    @Override
+                                    public void onChanged(List<String> mCourse) {
+                                        readAllCourse = mCourse;
+                                        if (readAllCourse == null || readAllCourse.size() == 0)
+                                            spinner_course.setAdapter(setUpNullCaseAdapter("EMPTY", getContext()));
+                                        else
+                                            spinner_course.setAdapter(setUpStringAdapter(getContext(), readAllCourse));
+                                    }
+                                });
+                    }
+                });
     }
 
     private void deleteDataFromDatabase(final View view) {
