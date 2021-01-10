@@ -40,4 +40,8 @@ public class CourseDetailViewModel extends AndroidViewModel {
     public LiveData<Integer> getCourseIdFromCourseAndTermAndYear(String course, String term, int year) {
         return repository.getCourseIdFromCourseAndTermAndYear(course, term, year);
     }
+
+    public LiveData<List<CourseDetailEntity>> loadAllDetailFromCourseTermYear(String course, String term, int year) {
+        return repository.loadAllDetailFromCourseTermYear(course, term, year);
+    }
 }

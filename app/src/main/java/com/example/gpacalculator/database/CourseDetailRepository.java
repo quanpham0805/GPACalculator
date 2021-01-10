@@ -30,6 +30,10 @@ public class CourseDetailRepository {
         });
     }
 
+    public LiveData<List<CourseDetailEntity>> loadAllDetailFromCourseTermYear(String course, String term, int year) {
+        return courseDetailDao.loadAllDetailFromCourseTermYear(course, term, year);
+    }
+
     public LiveData<List<CourseDetailEntity>> getReadAllData() {
         return readAllData;
     }

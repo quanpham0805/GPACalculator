@@ -33,6 +33,10 @@ public interface CourseDetailDao {
     @Insert
     void insertDetail(CourseDetailEntity courseDetailEntity);
 
+    @Transaction
+    @Query("SELECT * FROM course_detail WHERE courseId = (SELECT id FROM course WHERE course = :course AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
+    LiveData<List<CourseDetailEntity>> loadAllDetailFromCourseTermYear(String course, String term, int year);
+
 //    @Update
 //    void updateDetail(CourseDetailEntity courseDetailEntity);
 //
