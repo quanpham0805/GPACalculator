@@ -82,7 +82,6 @@ public class AddCourseDetailFragment extends Fragment {
         });
 
 
-
         // setting up button
         Button btn = (Button) view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -152,43 +151,52 @@ public class AddCourseDetailFragment extends Fragment {
         if (inputCheck(title, grade, weight, mScale)) {
             courseDetailViewModel.getCourseIdFromCourseAndTermAndYear(course, term, Integer.parseInt(year))
                     .observe(this, new Observer<Integer>() {
-                @Override
-                public void onChanged(Integer courseId) {
-                    CourseDetailEntity courseDetailEntity =
-                            new CourseDetailEntity(
-                                    title.getText().toString(),
-                                    "",
-                                    round(Double.parseDouble(grade.getText().toString()) * 100.0) / 100.0,
-                                    mScale,
-                                    round(Double.parseDouble(weight.getText().toString()) * 100.0) / 100.0,
-                                    courseId);
-                    courseDetailViewModel.addDetail(courseDetailEntity);
+                        @Override
+                        public void onChanged(final Integer courseId) {
+                            courseDetailViewModel.detailExisted(title.getText().toString(), courseId).observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+                                @Override
+                                public void onChanged(Boolean aBoolean) {
+                                    if (aBoolean) {
+                                        Toast.makeText(getContext(), "Entry already existed", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        CourseDetailEntity courseDetailEntity =
+                                                new CourseDetailEntity(
+                                                        title.getText().toString(),
+                                                        "",
+                                                        round(Double.parseDouble(grade.getText().toString()) * 100.0) / 100.0,
+                                                        mScale,
+                                                        round(Double.parseDouble(weight.getText().toString()) * 100.0) / 100.0,
+                                                        courseId);
+                                        courseDetailViewModel.addDetail(courseDetailEntity);
 
-                    Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
 
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("year", Integer.parseInt(year));
-                    bundle.putString("term", term);
-                    bundle.putString("course", course);
+                                        Bundle bundle = new Bundle();
+                                        bundle.putInt("year", Integer.parseInt(year));
+                                        bundle.putString("term", term);
+                                        bundle.putString("course", course);
 
-                    // Navigate back to GradesCourseDetailFragment
-                    // However, to prevent making a loop, we need to consider 2 cases:
-                    // If we arrive at this fragment from grades course detail fragment,
-                    // we need to pop gradesCourseDetailFragment as well.
-                    // Otherwise we only need to pop addCourseDetail
+                                        // Navigate back to GradesCourseDetailFragment
+                                        // However, to prevent making a loop, we need to consider 2 cases:
+                                        // If we arrive at this fragment from grades course detail fragment,
+                                        // we need to pop gradesCourseDetailFragment as well.
+                                        // Otherwise we only need to pop addCourseDetail
 
-                    NavController navController = Navigation.findNavController(view);
-                    String prevBackStack =  navController.getPreviousBackStackEntry().getDestination().toString();
+                                        NavController navController = Navigation.findNavController(view);
+                                        String prevBackStack = navController.getPreviousBackStackEntry().getDestination().toString();
 
 
-                    if (prevBackStack.contains("gradesCourseDetailFragment")) {
-                        navController.navigate(R.id.action_action_add_course_detail_to_gradesCourseDetailFragment_Detail, bundle);
-                    } else {
-                        navController.navigate(R.id.action_action_add_course_detail_to_gradesCourseDetailFragment_Home, bundle);
-                    }
+                                        if (prevBackStack.contains("gradesCourseDetailFragment")) {
+                                            navController.navigate(R.id.action_action_add_course_detail_to_gradesCourseDetailFragment_Detail, bundle);
+                                        } else {
+                                            navController.navigate(R.id.action_action_add_course_detail_to_gradesCourseDetailFragment_Home, bundle);
+                                        }
+                                    }
+                                }
+                            });
 
-                }
-            });
+                        }
+                    });
 
         } else {
             Toast.makeText(this.getContext(),

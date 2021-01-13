@@ -53,4 +53,8 @@ public class CourseDetailRepository {
     public LiveData<Integer> getCourseIdFromCourseAndTermAndYear(String course, String term, int year) {
         return courseDetailDao.getCourseIdFromCourseAndTermAndYear(course, term, year);
     }
+
+    public LiveData<Boolean> detailExisted(String courseDetail, int courseId) {
+        return courseDetailDao.detailExisted(courseDetail, courseId);
+    }
 }

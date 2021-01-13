@@ -44,4 +44,8 @@ public class CourseDetailViewModel extends AndroidViewModel {
     public LiveData<List<CourseDetailEntity>> loadAllDetailFromCourseTermYear(String course, String term, int year) {
         return repository.loadAllDetailFromCourseTermYear(course, term, year);
     }
+
+    public LiveData<Boolean> detailExisted(String courseDetail, int courseId) {
+        return repository.detailExisted(courseDetail, courseId);
+    }
 }

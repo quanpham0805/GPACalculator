@@ -37,6 +37,9 @@ public interface CourseDetailDao {
     @Query("SELECT * FROM course_detail WHERE courseId = (SELECT id FROM course WHERE course = :course AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
     LiveData<List<CourseDetailEntity>> loadAllDetailFromCourseTermYear(String course, String term, int year);
 
+    @Query("SELECT EXISTS(SELECT 1 FROM course_detail WHERE courseMarkName = :courseDetail AND courseId = :courseId)")
+    LiveData<Boolean> detailExisted(String courseDetail, int courseId);
+
 //    @Update
 //    void updateDetail(CourseDetailEntity courseDetailEntity);
 //

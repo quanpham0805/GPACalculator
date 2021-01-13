@@ -2,14 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="24dp"
-        tools:context=".ui.add.AddCourseFragment">
+        android:layout_height="match_parent">
 
         <Spinner
             android:id="@+id/spinner_year"
@@ -28,43 +26,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_year" />
 
-        <EditText
-            android:id="@+id/course_field"
+        <Spinner
+            android:id="@+id/spinner_course"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:ems="10"
-            android:hint="Course Name"
-            android:inputType="text"
-            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_term" />
 
-        <EditText
-            android:id="@+id/credits_field"
+        <Spinner
+            android:id="@+id/spinner_course_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:ems="10"
-            android:hint="Number of Credits"
-            android:inputType="numberDecimal"
-            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/course_field" />
+            app:layout_constraintTop_toBottomOf="@+id/spinner_course" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Add"
+            android:text="Delete"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/credits_field" />
-
-
+            app:layout_constraintTop_toBottomOf="@+id/spinner_course_detail" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>

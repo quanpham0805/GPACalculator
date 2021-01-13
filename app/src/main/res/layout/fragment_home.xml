@@ -1,82 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"
-    android:orientation="vertical"
-    >
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="10dp"
-        android:text="Your current term GPA"
-        android:textAlignment="center"
-        android:textSize="30sp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="10dp">
-
-        <ProgressBar
-            android:id="@+id/term_gpa_bar"
-            style="@style/CircularDeterminateProgressBar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:progress="60"
-            tools:ignore="MissingConstraints" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.home.HomeFragment">
 
         <TextView
-            android:id="@+id/term_gpa_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="60%"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:text="Your current term GPA"
             android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/term_gpa_bar"
-            app:layout_constraintEnd_toEndOf="@+id/term_gpa_bar"
-            app:layout_constraintStart_toStartOf="@+id/term_gpa_bar"
-            app:layout_constraintTop_toTopOf="@+id/term_gpa_bar" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textSize="30sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="10dp"
-        android:text="Your cumulative GPA"
-        android:textAlignment="center"
-        android:textSize="30sp" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="10dp">
+            <ProgressBar
+                android:id="@+id/term_gpa_bar"
+                style="@style/CircularDeterminateProgressBar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:progress="60"
+                tools:ignore="MissingConstraints" />
 
-        <ProgressBar
-            android:id="@+id/cumulative_gpa_bar"
-            style="@style/CircularDeterminateProgressBar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:progress="60"
-            tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/term_gpa_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="60%"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/term_gpa_bar"
+                app:layout_constraintEnd_toEndOf="@+id/term_gpa_bar"
+                app:layout_constraintStart_toStartOf="@+id/term_gpa_bar"
+                app:layout_constraintTop_toTopOf="@+id/term_gpa_bar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/cumulative_gpa_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="60%"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:text="Your cumulative GPA"
             android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/cumulative_gpa_bar"
-            app:layout_constraintEnd_toEndOf="@+id/cumulative_gpa_bar"
-            app:layout_constraintStart_toStartOf="@+id/cumulative_gpa_bar"
-            app:layout_constraintTop_toTopOf="@+id/cumulative_gpa_bar" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+            android:textSize="30sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:padding="10dp">
+
+            <ProgressBar
+                android:id="@+id/cumulative_gpa_bar"
+                style="@style/CircularDeterminateProgressBar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:progress="60"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/cumulative_gpa_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="60%"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@+id/cumulative_gpa_bar"
+                app:layout_constraintEnd_toEndOf="@+id/cumulative_gpa_bar"
+                app:layout_constraintStart_toStartOf="@+id/cumulative_gpa_bar"
+                app:layout_constraintTop_toTopOf="@+id/cumulative_gpa_bar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>
