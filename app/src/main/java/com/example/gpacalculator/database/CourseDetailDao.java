@@ -37,13 +37,16 @@ public interface CourseDetailDao {
     @Query("SELECT * FROM course_detail WHERE courseId = (SELECT id FROM course WHERE course = :course AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
     LiveData<List<CourseDetailEntity>> loadAllDetailFromCourseTermYear(String course, String term, int year);
 
+    @Transaction
+    @Query("SELECT courseMarkName FROM course_detail WHERE courseId = (SELECT id FROM course WHERE course = :course AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
+    LiveData<List<String>> getMarkNameFromCourseTermYear(String course, String term, int year);
+
     @Query("SELECT EXISTS(SELECT 1 FROM course_detail WHERE courseMarkName = :courseDetail AND courseId = :courseId)")
     LiveData<Boolean> detailExisted(String courseDetail, int courseId);
 
-//    @Update
-//    void updateDetail(CourseDetailEntity courseDetailEntity);
-//
-//    @Delete
-//    void deleteDetail(CourseDetailEntity courseDetailEntity);
+    // custom deletion
+    @Transaction
+    @Query("DELETE FROM course_detail WHERE courseMarkName = :name AND courseId = (SELECT id FROM course WHERE course = :course AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
+    void deleteDetail(String name, String course, String term, int year);
 
 }

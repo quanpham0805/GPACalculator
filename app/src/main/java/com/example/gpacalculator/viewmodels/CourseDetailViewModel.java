@@ -48,4 +48,12 @@ public class CourseDetailViewModel extends AndroidViewModel {
     public LiveData<Boolean> detailExisted(String courseDetail, int courseId) {
         return repository.detailExisted(courseDetail, courseId);
     }
+
+    public LiveData<List<String>> getMarkNameFromCourseTermYear(String course, String term, int year) {
+        return repository.getMarkNameFromCourseTermYear(course, term, year);
+    }
+
+    public void deleteDetail(String name, String course, String term, int year) {
+        repository.deleteDetail(name, course, term, year);
+    }
 }

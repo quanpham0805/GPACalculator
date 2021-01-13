@@ -94,6 +94,12 @@
                 android:title="Delete course"
                 app:showAsAction="never" />
 
+            <item
+                android:id="@+id/action_delete_mark"
+                android:orderInCategory="4"
+                android:title="Delete mark"
+                app:showAsAction="never" />
+
         </menu>
     </item>
 

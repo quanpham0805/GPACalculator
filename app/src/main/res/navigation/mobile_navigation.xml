@@ -184,5 +184,10 @@
             app:popUpTo="@id/action_add_course_detail"
             app:popUpToInclusive="true"/>
     </fragment>
+    <fragment
+        android:id="@+id/action_delete_mark"
+        android:name="com.example.gpacalculator.ui.delete.DeleteCourseDetailFragment"
+        android:label="Delete Mark"
+        tools:layout="@layout/fragment_delete_course_detail"/>
 
 </navigation>

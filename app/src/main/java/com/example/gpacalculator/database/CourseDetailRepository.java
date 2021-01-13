@@ -57,4 +57,17 @@ public class CourseDetailRepository {
     public LiveData<Boolean> detailExisted(String courseDetail, int courseId) {
         return courseDetailDao.detailExisted(courseDetail, courseId);
     }
+
+    public LiveData<List<String>> getMarkNameFromCourseTermYear(String course, String term, int year) {
+        return courseDetailDao.getMarkNameFromCourseTermYear(course, term, year);
+    }
+
+    public void deleteDetail(final String name, final String course, final String term, final int year) {
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                courseDetailDao.deleteDetail(name, course, term, year);
+            }
+        });
+    }
 }
