@@ -7,7 +7,8 @@ import java.util.List;
 
 public class CourseWithDetail {
 
-    @Embedded private CourseEntity CourseEntity;
+    @Embedded
+    private CourseEntity CourseEntity;
     @Relation(
             parentColumn = "id",
             entityColumn = "courseId"

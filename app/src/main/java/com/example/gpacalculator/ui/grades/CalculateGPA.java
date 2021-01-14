@@ -265,7 +265,7 @@ public class CalculateGPA {
         double sumFour = 0;
         double credits = 0;
 
-        for (int i = 0 ; i < yearGPA.first.size() ; i ++) {
+        for (int i = 0; i < yearGPA.first.size(); i++) {
             if (yearGPA.first.get(i).first != -1) {
                 sumHundred += yearGPA.first.get(i).first * yearGPA.second.get(i);
                 sumFour += yearGPA.first.get(i).second * yearGPA.second.get(i);

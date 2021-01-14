@@ -113,7 +113,7 @@ public class AddTermFragment extends Fragment {
                                 // we need to pop gradesTermFragment as well.
                                 // Otherwise we only need to pop AddTerm
                                 NavController navController = Navigation.findNavController(view);
-                                String prevBackStack =  navController.getPreviousBackStackEntry().getDestination().toString();
+                                String prevBackStack = navController.getPreviousBackStackEntry().getDestination().toString();
 //                                Log.e(LOG_TAG, prevBackStack);
                                 if (prevBackStack.contains("gradesTermFragment")) {
                                     navController.navigate(R.id.action_action_add_term_to_gradesTermFragment_Term, bundle);

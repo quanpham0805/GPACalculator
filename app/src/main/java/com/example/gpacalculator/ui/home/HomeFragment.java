@@ -80,13 +80,6 @@ public class HomeFragment extends Fragment {
         });
 
 
-
-
-
-
-
-
-
         textView.setText("100%");
         progressBar.setProgress(100);
 

@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "course_year")
 public class CourseYearEntity {
 
-    @PrimaryKey(autoGenerate = true) private int id;
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private int year;
 
     public CourseYearEntity(int id, int year) {

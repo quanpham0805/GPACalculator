@@ -136,7 +136,7 @@ public class AddCourseFragment extends Fragment {
                                 // Otherwise we only need to pop addCourse
 
                                 NavController navController = Navigation.findNavController(view);
-                                String prevBackStack =  navController.getPreviousBackStackEntry().getDestination().toString();
+                                String prevBackStack = navController.getPreviousBackStackEntry().getDestination().toString();
 
                                 if (prevBackStack.contains("gradesCourseFragment")) {
                                     navController.navigate(R.id.action_action_add_course_to_gradesCourseFragment_Course, bundle);

@@ -58,11 +58,15 @@ public class CourseDetailRVAdapter extends RecyclerView.Adapter<CourseDetailRVAd
     public void onBindViewHolder(@NonNull CourseDetailViewHolder holder, int position) {
         if (mData != null) {
             holder.getTVWeight().setText("Weight: " + String.valueOf(mData.get(position).getCourseWeight()));
-            holder.getTVGpa().setText("GPA: "+ String.valueOf(mData.get(position).getCourseMark()));
+            holder.getTVGpa().setText("GPA: " + String.valueOf(mData.get(position).getCourseMark()));
 
             switch ((int) mData.get(position).getCourseScale()) {
-                case 4: holder.getTVScale().setText("Scale: 4.0 scale"); break;
-                case 100: holder.getTVScale().setText("Scale: 100% scale"); break;
+                case 4:
+                    holder.getTVScale().setText("Scale: 4.0 scale");
+                    break;
+                case 100:
+                    holder.getTVScale().setText("Scale: 100% scale");
+                    break;
             }
 
             holder.getTVTitle().setText(mData.get(position).getCourseMarkName());

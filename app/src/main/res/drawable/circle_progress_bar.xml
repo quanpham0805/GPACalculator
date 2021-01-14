@@ -20,7 +20,7 @@
 
                 <gradient
                     android:startColor="@color/colorAccent"
-                    android:endColor="@color/colorPrimary"/>
+                    android:endColor="@color/colorPrimary" />
             </shape>
         </rotate>
     </item>

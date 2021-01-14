@@ -29,7 +29,7 @@ public class CourseTermEntity {
     @Ignore
     public CourseTermEntity(String term, int yearId) {
         this.term = term;
-        this.yearId=  yearId;
+        this.yearId = yearId;
     }
 
     public int getId() {

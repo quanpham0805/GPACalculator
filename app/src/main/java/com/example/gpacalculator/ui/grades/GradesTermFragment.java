@@ -67,12 +67,12 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
                     public void onChanged(final List<CourseEntity> courseEntities) {
                         mTermViewModel.loadAllDetailFromListCourseListTermYear(mTermViewModel.extractCourseName(courseEntities), fTermData, tYear)
                                 .observe(getViewLifecycleOwner(), new Observer<List<CourseDetailEntity>>() {
-                            @Override
-                            public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
-                                Log.e(LOG_TAG, courseDetailEntities.toString());
-                                mAdapter.updateDataString(fTermData, CalculateGPA.getTermGPA(courseTermEntities, courseEntities, courseDetailEntities));
-                            }
-                        });
+                                    @Override
+                                    public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
+                                        Log.e(LOG_TAG, courseDetailEntities.toString());
+                                        mAdapter.updateDataString(fTermData, CalculateGPA.getTermGPA(courseTermEntities, courseEntities, courseDetailEntities));
+                                    }
+                                });
                     }
                 });
             }
@@ -131,7 +131,6 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
         inflater.inflate(R.menu.toolbar_drawer, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
-
 
 
     // app bar menu of the vertical ellipsis

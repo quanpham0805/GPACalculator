@@ -84,7 +84,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         RVGradesData = new ArrayList<>();
         if (newGradesData == null) {
             if (RVTitleData != null) {
-                for (int i = 0 ; i < RVTitleData.size() ; i ++) {
+                for (int i = 0; i < RVTitleData.size(); i++) {
                     RVGradesData.add("TBD");
                 }
             }

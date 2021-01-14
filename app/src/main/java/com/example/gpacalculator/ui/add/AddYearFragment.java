@@ -47,7 +47,7 @@ public class AddYearFragment extends Fragment {
         return view;
     }
 
-    private void insertDataToDatabase (final View view) {
+    private void insertDataToDatabase(final View view) {
         EditText year = (EditText) view.findViewById(R.id.year_field);
 
         if (year != null && isParsable(year.getText().toString())) {
@@ -66,7 +66,7 @@ public class AddYearFragment extends Fragment {
                         Toast.makeText(getContext(), "Added one", Toast.LENGTH_SHORT).show();
 
                         NavController navController = Navigation.findNavController(view);
-                        String prevBackStack =  navController.getPreviousBackStackEntry().getDestination().toString();
+                        String prevBackStack = navController.getPreviousBackStackEntry().getDestination().toString();
                         if (prevBackStack.contains("nav_grades"))
                             navController.navigate(R.id.action_action_add_year_to_nav_grades_Grades);
                         else navController.navigate(R.id.action_action_add_year_to_nav_grades_Home);
