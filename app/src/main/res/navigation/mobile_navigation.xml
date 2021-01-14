@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/gradesCourseFragment"
         android:name="com.example.gpacalculator.ui.grades.GradesCourseFragment"
-        android:label="Grades"
+        android:label="Courses"
         tools:layout="@layout/fragment_grades_course">
         <action
             android:id="@+id/action_gradesCourseFragment_to_action_add_course"

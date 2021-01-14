@@ -32,7 +32,7 @@ public interface CourseTermDao {
     LiveData<List<CourseTermEntity>> getListTermFromYear(int year);
 
     @Transaction
-    @Query("SELECT * FROM course WHERE termId IN (SELECT id FROM course_term WHERE term in (:term) AND yearId = (SELECT id FROM course_year WHERE year = :year))")
+    @Query("SELECT * FROM course WHERE termId IN (SELECT id FROM course_term WHERE term IN (:term) AND yearId = (SELECT id FROM course_year WHERE year = :year))")
     LiveData<List<CourseEntity>> getListCourseFromListTermYear(List<String> term, int year);
 
     @Transaction
@@ -47,7 +47,7 @@ public interface CourseTermDao {
     LiveData<Boolean> termExisted(String term, int yearId);
 
     @Transaction
-    @Query("SELECT * FROM course_detail WHERE courseId IN (SELECT id FROM course WHERE course IN (:courses) AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term IN (:term) AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
+    @Query("SELECT * FROM course_detail WHERE courseId IN (SELECT id FROM course WHERE course IN (:courses) AND termId IN (SELECT DISTINCT(id) FROM course_term WHERE term IN (:term) AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
     LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseListTermYear(List<String> courses, List<String> term, int year);
 
     @Insert

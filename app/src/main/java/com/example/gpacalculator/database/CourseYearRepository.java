@@ -62,4 +62,16 @@ public class CourseYearRepository {
     public LiveData<Boolean> getYearExisted(int year) {
         return courseYearDao.yearExisted(year);
     }
+
+    public LiveData<List<CourseTermEntity>> getListTermFromListYear(List<Integer> year) {
+        return courseYearDao.getListTermFromListYear(year);
+    }
+
+    public LiveData<List<CourseEntity>> getListCourseFromListTermListYear(List<String> term, List<Integer> year) {
+        return courseYearDao.getListCourseFromListTermListYear(term, year);
+    }
+
+    public LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseListTermListYear(List<String> courses, List<String> term, List<Integer> year) {
+        return courseYearDao.loadAllDetailFromListCourseListTermListYear(courses, term, year);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.gpacalculator.ui.grades;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,9 +38,9 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
     private Toast mToast;
     private RVAdapter mAdapter;
     private List<String> fTermData = new ArrayList<>();
-    private List<Pair<Double, Double>> fGradesData = null;
     private CourseTermViewModel mTermViewModel;
     private int tYear;
+    final String LOG_TAG = GradesTermFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -68,6 +69,7 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
                                 .observe(getViewLifecycleOwner(), new Observer<List<CourseDetailEntity>>() {
                             @Override
                             public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
+                                Log.e(LOG_TAG, courseDetailEntities.toString());
                                 mAdapter.updateDataString(fTermData, CalculateGPA.getTermGPA(courseTermEntities, courseEntities, courseDetailEntities));
                             }
                         });
@@ -75,19 +77,6 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
                 });
             }
         });
-
-//        mTermViewModel.getYearIdFromYear(tYear).observe(getViewLifecycleOwner(), new Observer<Integer>() {
-//            @Override
-//            public void onChanged(Integer tYearId) {
-//                mTermViewModel.getTermFromYearId(tYearId).observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-//                    @Override
-//                    public void onChanged(List<String> mTerm) {
-//                        fTermData = mTerm;
-//                        mAdapter.updateDataString(fTermData, fGradesData);
-//                    }
-//                });
-//            }
-//        });
 
 
         // Setting the floating button

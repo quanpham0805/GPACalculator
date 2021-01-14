@@ -5,6 +5,7 @@ import android.util.Pair;
 import com.example.gpacalculator.database.CourseDetailEntity;
 import com.example.gpacalculator.database.CourseEntity;
 import com.example.gpacalculator.database.CourseTermEntity;
+import com.example.gpacalculator.database.CourseYearEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,7 +110,7 @@ public class CalculateGPA {
             // if there is no mark for a course, just put it -1 so the RecyclerView will give "NO DATA"
             // since GPA can't be negative, -1 is a good value.
             if (tempEntry == null) {
-                courseGPA.add(Pair.create((double)-1, (double)-1));
+                courseGPA.add(Pair.create((double) -1, (double) -1));
             } else {
                 double grades = tempEntry.first.grades;
                 double weight = tempEntry.first.weight / 100.0;
@@ -117,10 +118,10 @@ public class CalculateGPA {
                 // if weight is equal to 0, all the marks are not counted. Hence we will put -1.
                 // otherwise just do the formula. Here since we already calculated the sum, just take
                 // the quotient.
-                double gpa1 = (weight == 0 ? -1 : (round((grades/weight) * 100.0) / 100.0));
+                double gpa1 = (weight == 0 ? -1 : (round((grades / weight) * 100.0) / 100.0));
                 grades = tempEntry.second.grades;
                 weight = tempEntry.second.weight / 100.0;
-                double gpa2 = (weight == 0 ? -1 : (round((grades/weight) * 10.0) / 10.0));
+                double gpa2 = (weight == 0 ? -1 : (round((grades / weight) * 10.0) / 10.0));
                 courseGPA.add(Pair.create(gpa1, gpa2));
             }
         }
@@ -134,7 +135,6 @@ public class CalculateGPA {
     // Then, with the same logic of getCourseGPA, we now need to map the courses to the right term.
     // After that, we will calculate Term GPA. In this case, number of credits will be the weight of
     // each course.
-
     public static List<Pair<Double, Double>> getTermGPA(List<CourseTermEntity> courseTerm, List<CourseEntity> course, List<CourseDetailEntity> courseDetail) {
         // using the getCourseGPA function, we now obtain the GPA for all the courses.
         List<Pair<Double, Double>> courseGPA = getCourseGPA(course, courseDetail);
@@ -144,19 +144,19 @@ public class CalculateGPA {
 
 
         // First iteration, map course gpa to term.
-        for (int i = 0 ; i < course.size() ; i ++) {
+        for (int i = 0; i < course.size(); i++) {
             tempEntry = myMap.get(course.get(i).getTermId());
 
             // if there is no grade data, just put whatever grade and weight = 0.
             // For simplicity, we will just put the same -1 and it won't matter at all
             // since it's a multiplication by 0.
             if (courseGPA.get(i).first == -1) {
-                keyHolderFirst =  storeProductGradeWeight(courseGPA.get(i).first, 0);
-                keyHolderSecond =  storeProductGradeWeight(courseGPA.get(i).second, 0);
+                keyHolderFirst = storeProductGradeWeight(courseGPA.get(i).first, 0);
+                keyHolderSecond = storeProductGradeWeight(courseGPA.get(i).second, 0);
             } else {
                 // if there is grade data, we will just store it normally, note that weight = credits
-                keyHolderFirst =  storeProductGradeWeight(courseGPA.get(i).first, course.get(i).getCredits());
-                keyHolderSecond =  storeProductGradeWeight(courseGPA.get(i).second, course.get(i).getCredits());
+                keyHolderFirst = storeProductGradeWeight(courseGPA.get(i).first, course.get(i).getCredits());
+                keyHolderSecond = storeProductGradeWeight(courseGPA.get(i).second, course.get(i).getCredits());
             }
 
             // if there is one entry already exist, we recalculate the SumOf, then delete it.
@@ -186,15 +186,128 @@ public class CalculateGPA {
                 // if weight is equal to 0, all the marks are not counted. Hence we will put -1.
                 // otherwise just do the formula. Here since we already calculated the sum, just take
                 // the quotient.
-                double gpa1 = (weight == 0 ? -1 : (round((grades/weight) * 100.0) / 100.0));
+                double gpa1 = (weight == 0 ? -1 : (round((grades / weight) * 100.0) / 100.0));
                 grades = tempEntry.second.grades;
                 weight = tempEntry.second.weight / 100.0;
-                double gpa2 = (weight == 0 ? -1 : (round((grades/weight) * 10.0) / 10.0));
+                double gpa2 = (weight == 0 ? -1 : (round((grades / weight) * 10.0) / 10.0));
                 termGPA.add(Pair.create(gpa1, gpa2));
             }
         }
 
         return termGPA;
 
+    }
+
+    public static Pair<List<Pair<Double, Double>>, List<Double>> getTermGPAWithTotCredits(List<CourseTermEntity> courseTerm, List<CourseEntity> course, List<CourseDetailEntity> courseDetail) {
+        // using the getCourseGPA function, we now obtain the GPA for all the courses.
+        List<Pair<Double, Double>> courseGPA = getCourseGPA(course, courseDetail);
+        HashMap<Integer, Pair<GradeAndWeight, GradeAndWeight>> myMap = new HashMap<>();
+        GradeAndWeight keyHolderFirst, keyHolderSecond;
+        Pair<GradeAndWeight, GradeAndWeight> tempEntry;
+
+
+        // First iteration, map course gpa to term.
+        for (int i = 0; i < course.size(); i++) {
+            tempEntry = myMap.get(course.get(i).getTermId());
+
+            // if there is no grade data, just put whatever grade and weight = 0.
+            // For simplicity, we will just put the same -1 and it won't matter at all
+            // since it's a multiplication by 0.
+            if (courseGPA.get(i).first == -1) {
+                keyHolderFirst = storeProductGradeWeight(courseGPA.get(i).first, 0);
+                keyHolderSecond = storeProductGradeWeight(courseGPA.get(i).second, 0);
+            } else {
+                // if there is grade data, we will just store it normally, note that weight = credits
+                keyHolderFirst = storeProductGradeWeight(courseGPA.get(i).first, course.get(i).getCredits());
+                keyHolderSecond = storeProductGradeWeight(courseGPA.get(i).second, course.get(i).getCredits());
+            }
+
+            // if there is one entry already exist, we recalculate the SumOf, then delete it.
+            if (tempEntry != null) {
+                keyHolderFirst = new GradeAndWeight(tempEntry.first.grades + keyHolderFirst.grades, tempEntry.first.weight + keyHolderFirst.weight);
+                keyHolderSecond = new GradeAndWeight(tempEntry.second.grades + keyHolderSecond.grades, tempEntry.second.weight + keyHolderSecond.weight);
+                myMap.remove(course.get(i).getTermId());
+            }
+
+            // store data in hashmap.
+            myMap.put(course.get(i).getTermId(), Pair.create(keyHolderFirst, keyHolderSecond));
+        }
+
+
+        List<Pair<Double, Double>> termGPA = new ArrayList<>();
+        List<Double> termCredits = new ArrayList<>();
+        // Second iteration, get term gpa.
+        for (CourseTermEntity i : courseTerm) {
+            tempEntry = myMap.get(i.getId());
+
+            // if there is no entry for a term, just put -1, same logic as the courseGPA function.
+            if (tempEntry == null) {
+                termGPA.add(Pair.create((double) -1, (double) -1));
+                termCredits.add((double) -1);
+            } else {
+                double grades = tempEntry.first.grades;
+                double weight = tempEntry.first.weight / 100.0;
+
+                // if weight is equal to 0, all the marks are not counted. Hence we will put -1.
+                // otherwise just do the formula. Here since we already calculated the sum, just take
+                // the quotient.
+                double gpa1 = (weight == 0 ? -1 : (round((grades / weight) * 100.0) / 100.0));
+                grades = tempEntry.second.grades;
+                weight = tempEntry.second.weight / 100.0;
+                double gpa2 = (weight == 0 ? -1 : (round((grades / weight) * 10.0) / 10.0));
+                termGPA.add(Pair.create(gpa1, gpa2));
+                termCredits.add(weight);
+            }
+        }
+
+        return Pair.create(termGPA, termCredits);
+
+    }
+
+    public static List<Pair<Double, Double>> getYearGPA(List<CourseYearEntity> courseYear, List<CourseTermEntity> courseTerm, List<CourseEntity> course, List<CourseDetailEntity> courseDetail) {
+        Pair<List<Pair<Double, Double>>, List<Double>> termGPA = getTermGPAWithTotCredits(courseTerm, course, courseDetail);
+        HashMap<Integer, Pair<GradeAndWeight, GradeAndWeight>> myMap = new HashMap<>();
+        GradeAndWeight keyHolderFirst, keyHolderSecond;
+        Pair<GradeAndWeight, GradeAndWeight> tempEntry;
+
+        for (int i = 0; i < courseTerm.size(); i++) {
+            tempEntry = myMap.get(courseTerm.get(i).getYearId());
+
+            if (termGPA.first.get(i).first == -1) {
+                keyHolderFirst = storeProductGradeWeight(termGPA.first.get(i).first, 0);
+                keyHolderSecond = storeProductGradeWeight(termGPA.first.get(i).second, 0);
+            } else {
+                keyHolderFirst = storeProductGradeWeight(termGPA.first.get(i).first, termGPA.second.get(i));
+                keyHolderSecond = storeProductGradeWeight(termGPA.first.get(i).second, termGPA.second.get(i));
+            }
+
+            if (tempEntry != null) {
+                keyHolderFirst = new GradeAndWeight(tempEntry.first.grades + keyHolderFirst.grades, tempEntry.first.weight + keyHolderFirst.weight);
+                keyHolderSecond = new GradeAndWeight(tempEntry.second.grades + keyHolderSecond.grades, tempEntry.second.weight + keyHolderSecond.weight);
+                myMap.remove(courseTerm.get(i).getYearId());
+            }
+
+            myMap.put(courseTerm.get(i).getYearId(), Pair.create(keyHolderFirst, keyHolderSecond));
+        }
+
+
+        List<Pair<Double, Double>> yearGPA = new ArrayList<>();
+        for (CourseYearEntity i : courseYear) {
+            tempEntry = myMap.get(i.getId());
+
+            if (tempEntry == null) {
+                yearGPA.add(Pair.create((double) -1, (double) -1));
+            } else {
+                double grades = tempEntry.first.grades;
+                double weight = tempEntry.first.weight / 100.0;
+                double gpa1 = (weight == 0 ? -1 : (round((grades / weight) * 100.0) / 100.0));
+                grades = tempEntry.second.grades;
+                weight = tempEntry.second.weight / 100.0;
+                double gpa2 = (weight == 0 ? -1 : (round((grades / weight) * 10.0) / 10.0));
+                yearGPA.add(Pair.create(gpa1, gpa2));
+            }
+        }
+
+        return yearGPA;
     }
 }

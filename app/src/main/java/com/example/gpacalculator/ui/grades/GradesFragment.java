@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gpacalculator.R;
+import com.example.gpacalculator.database.CourseDetailEntity;
+import com.example.gpacalculator.database.CourseEntity;
+import com.example.gpacalculator.database.CourseTermEntity;
 import com.example.gpacalculator.database.CourseYearEntity;
 import com.example.gpacalculator.viewmodels.CourseYearViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -52,14 +55,32 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
 
         // Course Year ViewModel
         mYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
-        mYearViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
+        mYearViewModel.getReadAllData().observe(getViewLifecycleOwner(), new Observer<List<CourseYearEntity>>() {
             @Override
-            public void onChanged(List<Integer> years) {
-                fYearData = years;
-                mAdapter.updateDataInteger(fYearData, fGradesData);
+            public void onChanged(final List<CourseYearEntity> courseYearEntities) {
+                fYearData = mYearViewModel.extractYear(courseYearEntities);
+                mYearViewModel.getListTermFromListYear(fYearData).observe(getViewLifecycleOwner(), new Observer<List<CourseTermEntity>>() {
+                    @Override
+                    public void onChanged(final List<CourseTermEntity> courseTermEntities) {
+                        mYearViewModel.getListCourseFromListTermListYear(mYearViewModel.extractTermName(courseTermEntities), fYearData)
+                                .observe(getViewLifecycleOwner(), new Observer<List<CourseEntity>>() {
+                                    @Override
+                                    public void onChanged(final List<CourseEntity> courseEntities) {
+                                        mYearViewModel.loadAllDetailFromListCourseListTermListYear(mYearViewModel.extractCourseName(courseEntities),
+                                                mYearViewModel.extractTermName(courseTermEntities), fYearData)
+                                                .observe(getViewLifecycleOwner(), new Observer<List<CourseDetailEntity>>() {
+                                                    @Override
+                                                    public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
+                                                        mAdapter.updateDataInteger(fYearData, CalculateGPA.getYearGPA(courseYearEntities, courseTermEntities, courseEntities, courseDetailEntities));
+                                                    }
+                                                });
+                                    }
+                                });
+                    }
+                });
+
             }
         });
-
 
 
         // Setting the floating action button to move to add fragment
