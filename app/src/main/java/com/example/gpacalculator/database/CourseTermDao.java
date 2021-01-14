@@ -24,22 +24,22 @@ public interface CourseTermDao {
     LiveData<Integer> getYearIdFromYear(int year);
 
     @Transaction
-    @Query("SELECT term FROM course_term WHERE yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)")
+    @Query("SELECT term FROM course_term WHERE yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year) ORDER BY id ASC")
     LiveData<List<String>> getTermFromYear(int year);
 
     @Transaction
-    @Query("SELECT * FROM course_term WHERE yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)")
+    @Query("SELECT * FROM course_term WHERE yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year) ORDER BY id ASC")
     LiveData<List<CourseTermEntity>> getListTermFromYear(int year);
 
     @Transaction
-    @Query("SELECT * FROM course WHERE termId IN (SELECT id FROM course_term WHERE term IN (:term) AND yearId = (SELECT id FROM course_year WHERE year = :year))")
+    @Query("SELECT * FROM course WHERE termId IN (SELECT id FROM course_term WHERE term IN (:term) AND yearId = (SELECT id FROM course_year WHERE year = :year)) ORDER BY id ASC")
     LiveData<List<CourseEntity>> getListCourseFromListTermYear(List<String> term, int year);
 
     @Transaction
     @Query("DELETE FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)")
     void deleteTermByTermAndYear(String term, int year);
 
-    @Query("SELECT term FROM course_term WHERE yearId = :yearId")
+    @Query("SELECT term FROM course_term WHERE yearId = :yearId ORDER BY id ASC")
     LiveData<List<String>> getTermFromYearId(int yearId);
 
     @Transaction
@@ -47,7 +47,7 @@ public interface CourseTermDao {
     LiveData<Boolean> termExisted(String term, int yearId);
 
     @Transaction
-    @Query("SELECT * FROM course_detail WHERE courseId IN (SELECT id FROM course WHERE course IN (:courses) AND termId IN (SELECT DISTINCT(id) FROM course_term WHERE term IN (:term) AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
+    @Query("SELECT * FROM course_detail WHERE courseId IN (SELECT id FROM course WHERE course IN (:courses) AND termId IN (SELECT DISTINCT(id) FROM course_term WHERE term IN (:term) AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year))) ORDER BY id ASC")
     LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseListTermYear(List<String> courses, List<String> term, int year);
 
     @Insert

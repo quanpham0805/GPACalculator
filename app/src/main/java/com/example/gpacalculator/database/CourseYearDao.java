@@ -31,15 +31,15 @@ public interface CourseYearDao {
     void deleteYearByYear(int year);
 
     @Transaction
-    @Query("SELECT * FROM course_term WHERE yearId IN (SELECT id FROM course_year WHERE year IN (:year))")
+    @Query("SELECT * FROM course_term WHERE yearId IN (SELECT id FROM course_year WHERE year IN (:year)) ORDER BY id ASC")
     LiveData<List<CourseTermEntity>> getListTermFromListYear(List<Integer> year);
 
     @Transaction
-    @Query("SELECT * FROM course WHERE termId IN (SELECT id FROM course_term WHERE term IN (:term) AND yearId IN (SELECT id FROM course_year WHERE year IN (:year)))")
+    @Query("SELECT * FROM course WHERE termId IN (SELECT id FROM course_term WHERE term IN (:term) AND yearId IN (SELECT id FROM course_year WHERE year IN (:year))) ORDER BY id ASC")
     LiveData<List<CourseEntity>> getListCourseFromListTermListYear(List<String> term, List<Integer> year);
 
     @Transaction
-    @Query("SELECT * FROM course_detail WHERE courseId IN (SELECT id FROM course WHERE course IN (:courses) AND termId IN (SELECT DISTINCT(id) FROM course_term WHERE term IN (:term) AND yearId IN (SELECT id FROM course_year WHERE year IN (:year))))")
+    @Query("SELECT * FROM course_detail WHERE courseId IN (SELECT id FROM course WHERE course IN (:courses) AND termId IN (SELECT DISTINCT(id) FROM course_term WHERE term IN (:term) AND yearId IN (SELECT id FROM course_year WHERE year IN (:year)))) ORDER BY id ASC")
     LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseListTermListYear(List<String> courses, List<String> term, List<Integer> year);
 
 }
