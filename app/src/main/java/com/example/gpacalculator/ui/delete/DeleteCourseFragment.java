@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,12 +32,12 @@ import java.util.List;
 
 public class DeleteCourseFragment extends Fragment {
 
+    final String LOG_TAG = DeleteCourseFragment.class.getSimpleName();
     private CourseViewModel courseViewModel;
     private List<Integer> readAllYear = new ArrayList<>();
     private List<String> readAllTerm = new ArrayList<>();
     private List<String> readAllCourse = new ArrayList<>();
     private Spinner spinner_year, spinner_term, spinner_course;
-    final String LOG_TAG = DeleteCourseFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -49,9 +48,9 @@ public class DeleteCourseFragment extends Fragment {
         courseViewModel = new ViewModelProvider(this).get(CourseViewModel.class);
 
         // setting up spinner with year, term and course live data
-        spinner_year = (Spinner) view.findViewById(R.id.spinner_year);
-        spinner_term = (Spinner) view.findViewById(R.id.spinner_term);
-        spinner_course = (Spinner) view.findViewById(R.id.spinner_course);
+        spinner_year = view.findViewById(R.id.spinner_year);
+        spinner_term = view.findViewById(R.id.spinner_term);
+        spinner_course = view.findViewById(R.id.spinner_course);
         courseViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> integers) {
@@ -79,7 +78,7 @@ public class DeleteCourseFragment extends Fragment {
 
 
         // set up delete button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

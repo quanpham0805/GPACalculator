@@ -48,13 +48,13 @@ public class AddCourseDetailFragment extends Fragment {
         courseDetailViewModel = new ViewModelProvider(this).get(CourseDetailViewModel.class);
 
         // setting up spinners with predefined options
-        spinner_scale = (Spinner) view.findViewById(R.id.spinner_scale);
-        spinner_scale.setAdapter(setUpStringAdapter(getContext(), Arrays.asList(new String[]{"4.0 scale", "100% scale"})));
+        spinner_scale = view.findViewById(R.id.spinner_scale);
+        spinner_scale.setAdapter(setUpStringAdapter(getContext(), Arrays.asList("4.0 scale", "100% scale")));
 
         // setting up spinners with live data
-        spinner_year = (Spinner) view.findViewById(R.id.spinner_year);
-        spinner_term = (Spinner) view.findViewById(R.id.spinner_term);
-        spinner_course = (Spinner) view.findViewById(R.id.spinner_course);
+        spinner_year = view.findViewById(R.id.spinner_year);
+        spinner_term = view.findViewById(R.id.spinner_term);
+        spinner_course = view.findViewById(R.id.spinner_course);
 
         courseDetailViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
@@ -83,7 +83,7 @@ public class AddCourseDetailFragment extends Fragment {
 
 
         // setting up button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,9 +143,9 @@ public class AddCourseDetailFragment extends Fragment {
         final String year = spinner_year.getSelectedItem().toString();
         final String term = spinner_term.getSelectedItem().toString();
         final String course = spinner_course.getSelectedItem().toString();
-        final EditText title = (EditText) view.findViewById(R.id.course_title);
-        final EditText grade = (EditText) view.findViewById(R.id.course_grade);
-        final EditText weight = (EditText) view.findViewById(R.id.course_weight);
+        final EditText title = view.findViewById(R.id.course_title);
+        final EditText grade = view.findViewById(R.id.course_grade);
+        final EditText weight = view.findViewById(R.id.course_weight);
         String scale = spinner_scale.getSelectedItem().toString();
         final double mScale = (scale.contains("100") ? 100 : 4);
         if (inputCheck(title, grade, weight, mScale)) {

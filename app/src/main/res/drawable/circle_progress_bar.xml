@@ -19,8 +19,8 @@
                 android:useLevel="true">
 
                 <gradient
-                    android:startColor="@color/colorAccent"
-                    android:endColor="@color/colorPrimary" />
+                    android:endColor="@color/colorPrimary"
+                    android:startColor="@color/colorAccent" />
             </shape>
         </rotate>
     </item>

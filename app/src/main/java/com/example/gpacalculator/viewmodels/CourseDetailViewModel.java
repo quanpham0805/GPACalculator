@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CourseDetailViewModel extends AndroidViewModel {
 
-    private CourseDetailRepository repository;
+    private final CourseDetailRepository repository;
 
     public CourseDetailViewModel(@NonNull Application application) {
         super(application);

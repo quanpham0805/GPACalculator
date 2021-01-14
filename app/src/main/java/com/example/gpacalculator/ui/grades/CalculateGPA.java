@@ -15,15 +15,6 @@ import static java.lang.Math.round;
 
 public class CalculateGPA {
 
-    public static class GradeAndWeight {
-        public double grades, weight;
-
-        public GradeAndWeight(double grades, double weight) {
-            this.grades = grades;
-            this.weight = weight;
-        }
-    }
-
     public static double FourToHundred(double grade) {
         if (grade == 4) return 95;
         else if (3.9 <= grade) return 87;
@@ -60,13 +51,6 @@ public class CalculateGPA {
     public static GradeAndWeight storeProductGradeWeight(double grades, double weight) {
         return new GradeAndWeight(grades * weight / 100.0, weight);
     }
-
-    // Description:
-    // First iterate thru the list of course detail that is provided
-    // We have to match which course the course details belong to by
-    // using a map, where the key is the courseId, while the value is
-    // the pair of GradeAndWeight class, where the first component of the
-    // pair is grade in 100% scale, while the second is grade in 4.0 scale
 
     // Then after that, we will calculate the gpa of each course.
     // The formula is SumOf(mark * weight) / SumOf(weight).
@@ -129,6 +113,12 @@ public class CalculateGPA {
         return courseGPA;
     }
 
+    // Description:
+    // First iterate thru the list of course detail that is provided
+    // We have to match which course the course details belong to by
+    // using a map, where the key is the courseId, while the value is
+    // the pair of GradeAndWeight class, where the first component of the
+    // pair is grade in 100% scale, while the second is grade in 4.0 scale
 
     // Description:
     // First, we will use the getCourseGPA to get the GPA for all the courses.
@@ -277,6 +267,15 @@ public class CalculateGPA {
             return Pair.create((double) -1, (double) -1);
         } else {
             return Pair.create((round((sumHundred / credits) * 100.0) / 100.0), (round((sumFour / credits) * 100.0) / 100.0));
+        }
+    }
+
+    public static class GradeAndWeight {
+        public double grades, weight;
+
+        public GradeAndWeight(double grades, double weight) {
+            this.grades = grades;
+            this.weight = weight;
         }
     }
 }

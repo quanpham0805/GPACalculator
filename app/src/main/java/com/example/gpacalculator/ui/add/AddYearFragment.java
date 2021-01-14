@@ -36,7 +36,7 @@ public class AddYearFragment extends Fragment {
 
 
         // set up add button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +48,7 @@ public class AddYearFragment extends Fragment {
     }
 
     private void insertDataToDatabase(final View view) {
-        EditText year = (EditText) view.findViewById(R.id.year_field);
+        EditText year = view.findViewById(R.id.year_field);
 
         if (year != null && isParsable(year.getText().toString())) {
             final int mYear = Integer.parseInt(year.getText().toString());

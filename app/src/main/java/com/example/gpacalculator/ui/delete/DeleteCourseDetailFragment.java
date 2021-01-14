@@ -43,10 +43,10 @@ public class DeleteCourseDetailFragment extends Fragment {
         courseDetailViewModel = new ViewModelProvider(this).get(CourseDetailViewModel.class);
 
         // setting up spinners with live data
-        spinner_year = (Spinner) view.findViewById(R.id.spinner_year);
-        spinner_term = (Spinner) view.findViewById(R.id.spinner_term);
-        spinner_course = (Spinner) view.findViewById(R.id.spinner_course);
-        spinner_detail = (Spinner) view.findViewById(R.id.spinner_course_detail);
+        spinner_year = view.findViewById(R.id.spinner_year);
+        spinner_term = view.findViewById(R.id.spinner_term);
+        spinner_course = view.findViewById(R.id.spinner_course);
+        spinner_detail = view.findViewById(R.id.spinner_course_detail);
 
         courseDetailViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
@@ -75,7 +75,7 @@ public class DeleteCourseDetailFragment extends Fragment {
         });
 
         // set up delete button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

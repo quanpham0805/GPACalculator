@@ -16,10 +16,10 @@ import java.util.List;
 
 public class CourseTermViewModel extends AndroidViewModel {
 
-    private LiveData<List<CourseTermEntity>> readAllData;
-    private LiveData<List<String>> readAllTerm;
-    private LiveData<List<Integer>> readAllYear;
-    private CourseTermRepository repository;
+    private final LiveData<List<CourseTermEntity>> readAllData;
+    private final LiveData<List<String>> readAllTerm;
+    private final LiveData<List<Integer>> readAllYear;
+    private final CourseTermRepository repository;
 
     public CourseTermViewModel(@NonNull Application application) {
         super(application);

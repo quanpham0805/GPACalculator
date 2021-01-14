@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.edit.EditCourseFragment"
-    android:padding="24dp">
+    android:padding="24dp"
+    tools:context=".ui.edit.EditCourseFragment">
 
     <Spinner
         android:id="@+id/spinner_year"

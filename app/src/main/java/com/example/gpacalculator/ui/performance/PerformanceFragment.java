@@ -7,7 +7,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +24,6 @@ public class PerformanceFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_performance, container, false);
 
-        TextView textView = view.findViewById(R.id.text_performance);
-        textView.setText("This is performance fragment");
 
         return view;
     }

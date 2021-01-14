@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,7 +50,7 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
 
         // Setting the recyclerview
         mAdapter = new RVAdapter(this);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_grades);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
 
@@ -81,7 +80,7 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
 //        mAdapter.updateDataString(fCourseData);
 
         // Setting the floating button
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

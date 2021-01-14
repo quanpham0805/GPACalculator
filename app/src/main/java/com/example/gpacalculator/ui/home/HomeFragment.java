@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         final TextView textView = view.findViewById(R.id.cumulative_gpa_text);
-        final ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.cumulative_gpa_bar);
+        final ProgressBar progressBar = view.findViewById(R.id.cumulative_gpa_bar);
 
         mYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
         mYearViewModel.getReadAllData().observe(getViewLifecycleOwner(), new Observer<List<CourseYearEntity>>() {
@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
                                                             textView.setText("NO DATA");
                                                             progressBar.setProgress(0);
                                                         } else {
-                                                            textView.setText(String.valueOf(cGPA.first) + "% / " + String.valueOf(cGPA.second));
+                                                            textView.setText(cGPA.first + "% / " + cGPA.second);
                                                             progressBar.setProgress((int) ((double) cGPA.first));
                                                         }
                                                     }

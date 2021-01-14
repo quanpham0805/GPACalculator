@@ -2,7 +2,6 @@ package com.example.gpacalculator.ui.grades;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,12 +33,12 @@ import java.util.List;
 
 public class GradesTermFragment extends Fragment implements RVAdapter.ListItemClickListener {
 
+    final String LOG_TAG = GradesTermFragment.class.getSimpleName();
     private Toast mToast;
     private RVAdapter mAdapter;
     private List<String> fTermData = new ArrayList<>();
     private CourseTermViewModel mTermViewModel;
     private int tYear;
-    final String LOG_TAG = GradesTermFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -51,7 +49,7 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
 
         // Setting the recyclerview
         mAdapter = new RVAdapter(this);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_grades);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
 
@@ -80,7 +78,7 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
 
 
         // Setting the floating button
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

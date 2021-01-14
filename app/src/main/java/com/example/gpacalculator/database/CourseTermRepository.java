@@ -10,13 +10,12 @@ import java.util.concurrent.Executors;
 
 public class CourseTermRepository {
 
-    private CourseTermDao courseTermDao;
-    private LiveData<List<CourseTermEntity>> readAllData;
-    private LiveData<List<String>> readAllTerm;
-    private LiveData<List<Integer>> readAllYear;
-
     // Since AsyncTask is deprecated, we use this instead
     private final Executor executor = Executors.newSingleThreadExecutor();
+    private final CourseTermDao courseTermDao;
+    private final LiveData<List<CourseTermEntity>> readAllData;
+    private final LiveData<List<String>> readAllTerm;
+    private final LiveData<List<Integer>> readAllYear;
 
     public CourseTermRepository(Application application) {
         courseTermDao = MainDatabase.getInstance(application).courseTermDao();

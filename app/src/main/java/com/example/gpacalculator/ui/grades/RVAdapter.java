@@ -24,35 +24,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         this.mOnClickListener = listener;
     }
 
-    public class RVViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView titleItemView, gradesItemView;
-
-        public RVViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.titleItemView = (TextView) itemView.findViewById(R.id.tv_name);
-            this.gradesItemView = (TextView) itemView.findViewById(R.id.tv_gpa);
-            itemView.setOnClickListener(this);
-        }
-
-        public TextView getTitleTextView() {
-            return this.titleItemView;
-        }
-
-        public TextView getGradesTextView() {
-            return this.gradesItemView;
-        }
-
-        @Override
-        public void onClick(View v) {
-            int clickedPosition = getAdapterPosition();
-            mOnClickListener.onListItemClick(clickedPosition, v);
-        }
-    }
-
-    public interface ListItemClickListener {
-        void onListItemClick(int clickedItemIndex, View view);
-    }
-
     @NonNull
     @Override
     public RVViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -93,7 +64,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         else {
             for (Pair<Double, Double> i : newGradesData) {
                 if (i.first == -1) RVGradesData.add("NO DATA");
-                else RVGradesData.add(String.valueOf(i.first) + "% / " + String.valueOf(i.second));
+                else RVGradesData.add(i.first + "% / " + i.second);
             }
         }
     }
@@ -113,6 +84,36 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.RVViewHolder> {
         RVTitleData = newTitleData;
         updateGradesData(newGradesData);
         notifyDataSetChanged();
+    }
+
+    public interface ListItemClickListener {
+        void onListItemClick(int clickedItemIndex, View view);
+    }
+
+    public class RVViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView titleItemView;
+        private final TextView gradesItemView;
+
+        public RVViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.titleItemView = itemView.findViewById(R.id.tv_name);
+            this.gradesItemView = itemView.findViewById(R.id.tv_gpa);
+            itemView.setOnClickListener(this);
+        }
+
+        public TextView getTitleTextView() {
+            return this.titleItemView;
+        }
+
+        public TextView getGradesTextView() {
+            return this.gradesItemView;
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            mOnClickListener.onListItemClick(clickedPosition, v);
+        }
     }
 
 

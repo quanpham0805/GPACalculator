@@ -2,16 +2,13 @@ package com.example.gpacalculator.ui.delete;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -44,8 +41,8 @@ public class DeleteTermFragment extends Fragment {
         courseTermViewModel = new ViewModelProvider(this).get(CourseTermViewModel.class);
 
         // setting up spinner with year and term live data
-        spinner_year = (Spinner) view.findViewById(R.id.spinner_year);
-        spinner_term = (Spinner) view.findViewById(R.id.spinner_term);
+        spinner_year = view.findViewById(R.id.spinner_year);
+        spinner_term = view.findViewById(R.id.spinner_term);
         courseTermViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> integers) {
@@ -82,7 +79,7 @@ public class DeleteTermFragment extends Fragment {
         });
 
         // set up delete button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

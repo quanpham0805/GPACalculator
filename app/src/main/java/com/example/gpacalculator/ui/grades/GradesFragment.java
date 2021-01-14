@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,10 +34,10 @@ import java.util.List;
 
 public class GradesFragment extends Fragment implements RVAdapter.ListItemClickListener {
 
+    private final List<Pair<Double, Double>> fGradesData = null;
     private Toast mToast;
     private RVAdapter mAdapter;
     private List<Integer> fYearData = new ArrayList<>();
-    private List<Pair<Double, Double>> fGradesData = null;
     private CourseYearViewModel mYearViewModel;
 
     @Nullable
@@ -48,7 +47,7 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
 
         // Setting the recyclerview
         mAdapter = new RVAdapter(this);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_grades);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_grades);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
 //        mAdapter.updateDataInteger(fYearData);
@@ -84,7 +83,7 @@ public class GradesFragment extends Fragment implements RVAdapter.ListItemClickL
 
 
         // Setting the floating action button to move to add fragment
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

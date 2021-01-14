@@ -3,7 +3,6 @@ package com.example.gpacalculator.ui.add;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,7 +25,6 @@ import com.example.gpacalculator.R;
 import com.example.gpacalculator.database.CourseEntity;
 import com.example.gpacalculator.viewmodels.CourseViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +46,8 @@ public class AddCourseFragment extends Fragment {
         // setting up spinner with year, term live data
         // TODO: change focus of the spinner maybe nicer?
         // TODO: might wanna clear stack instead of just navigate to grades
-        spinner_year = (Spinner) view.findViewById(R.id.spinner_year);
-        spinner_term = (Spinner) view.findViewById(R.id.spinner_term);
+        spinner_year = view.findViewById(R.id.spinner_year);
+        spinner_term = view.findViewById(R.id.spinner_term);
         courseViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> integers) {
@@ -88,7 +85,7 @@ public class AddCourseFragment extends Fragment {
         });
 
         // set up add button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +100,8 @@ public class AddCourseFragment extends Fragment {
     private void insertDataToDatabase(final View view) {
         String year = spinner_year.getSelectedItem().toString();
         String term = spinner_term.getSelectedItem().toString();
-        EditText course = (EditText) view.findViewById(R.id.course_field);
-        EditText credits = (EditText) view.findViewById(R.id.credits_field);
+        EditText course = view.findViewById(R.id.course_field);
+        EditText credits = view.findViewById(R.id.credits_field);
 //        Toast.makeText(this.getContext(), "Later", Toast.LENGTH_SHORT).show();
         if (inputCheck(year, term, course, credits)) {
             final int mYear = Integer.parseInt(year);

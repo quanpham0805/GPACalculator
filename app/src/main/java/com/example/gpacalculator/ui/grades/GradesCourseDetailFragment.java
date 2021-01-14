@@ -48,7 +48,7 @@ public class GradesCourseDetailFragment extends Fragment {
 
         // Setting the recycler view
         mAdapter = new CourseDetailRVAdapter();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.rv_detail);
+        RecyclerView recyclerView = view.findViewById(R.id.rv_detail);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(mAdapter);
 
@@ -65,7 +65,7 @@ public class GradesCourseDetailFragment extends Fragment {
 
         // setting the floating button
         // Setting the floating button
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,7 +3,6 @@ package com.example.gpacalculator.ui.add;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -31,9 +29,9 @@ import java.util.List;
 
 public class AddTermFragment extends Fragment {
 
+    private final String LOG_TAG = AddTermFragment.class.getSimpleName();
     private CourseTermViewModel courseTermViewModel;
     private List<Integer> readAllYear = new ArrayList<>();
-    private final String LOG_TAG = AddTermFragment.class.getSimpleName();
     private Spinner spinner;
 
     @Nullable
@@ -45,7 +43,7 @@ public class AddTermFragment extends Fragment {
         courseTermViewModel = new ViewModelProvider(this).get(CourseTermViewModel.class);
 
         // setting up spinner with year live data
-        spinner = (Spinner) view.findViewById(R.id.spinner);
+        spinner = view.findViewById(R.id.spinner);
         courseTermViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> integers) {
@@ -62,7 +60,7 @@ public class AddTermFragment extends Fragment {
         });
 
         // set up add button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +81,7 @@ public class AddTermFragment extends Fragment {
 
     private void insertDataToDatabase(final View view) {
         String year = spinner.getSelectedItem().toString();
-        EditText term = (EditText) view.findViewById(R.id.term_field);
+        EditText term = view.findViewById(R.id.term_field);
 
         if (inputCheck(year, term)) {
             final int mYear = Integer.parseInt(year);

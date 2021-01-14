@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.gpacalculator.R;
-import com.example.gpacalculator.database.CourseYearEntity;
 import com.example.gpacalculator.viewmodels.CourseYearViewModel;
 
 import java.util.ArrayList;
@@ -41,7 +39,7 @@ public class DeleteYearFragment extends Fragment {
         courseYearViewModel = new ViewModelProvider(this).get(CourseYearViewModel.class);
 
         // setting up spinner with year live data
-        spinner_year = (Spinner) view.findViewById(R.id.spinner_year);
+        spinner_year = view.findViewById(R.id.spinner_year);
         courseYearViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
             public void onChanged(List<Integer> integers) {
@@ -55,7 +53,7 @@ public class DeleteYearFragment extends Fragment {
         });
 
         // set up delete button
-        Button btn = (Button) view.findViewById(R.id.button);
+        Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

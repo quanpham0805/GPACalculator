@@ -17,34 +17,6 @@ public class CourseDetailRVAdapter extends RecyclerView.Adapter<CourseDetailRVAd
 
     private List<CourseDetailEntity> mData;
 
-    public class CourseDetailViewHolder extends RecyclerView.ViewHolder {
-        private TextView TVTitle, TVGpa, TVWeight, TVScale;
-
-        public CourseDetailViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.TVTitle = (TextView) itemView.findViewById(R.id.tv_title);
-            this.TVGpa = (TextView) itemView.findViewById(R.id.tv_gpa);
-            this.TVWeight = (TextView) itemView.findViewById(R.id.tv_weight);
-            this.TVScale = (TextView) itemView.findViewById(R.id.tv_scale);
-        }
-
-        public TextView getTVTitle() {
-            return TVTitle;
-        }
-
-        public TextView getTVGpa() {
-            return TVGpa;
-        }
-
-        public TextView getTVWeight() {
-            return TVWeight;
-        }
-
-        public TextView getTVScale() {
-            return TVScale;
-        }
-    }
-
     @NonNull
     @Override
     public CourseDetailViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,8 +29,8 @@ public class CourseDetailRVAdapter extends RecyclerView.Adapter<CourseDetailRVAd
     @Override
     public void onBindViewHolder(@NonNull CourseDetailViewHolder holder, int position) {
         if (mData != null) {
-            holder.getTVWeight().setText("Weight: " + String.valueOf(mData.get(position).getCourseWeight()));
-            holder.getTVGpa().setText("GPA: " + String.valueOf(mData.get(position).getCourseMark()));
+            holder.getTVWeight().setText("Weight: " + mData.get(position).getCourseWeight());
+            holder.getTVGpa().setText("GPA: " + mData.get(position).getCourseMark());
 
             switch ((int) mData.get(position).getCourseScale()) {
                 case 4:
@@ -88,6 +60,37 @@ public class CourseDetailRVAdapter extends RecyclerView.Adapter<CourseDetailRVAd
     public void updateData(List<CourseDetailEntity> newData) {
         mData = newData;
         notifyDataSetChanged();
+    }
+
+    public class CourseDetailViewHolder extends RecyclerView.ViewHolder {
+        private final TextView TVTitle;
+        private final TextView TVGpa;
+        private final TextView TVWeight;
+        private final TextView TVScale;
+
+        public CourseDetailViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.TVTitle = itemView.findViewById(R.id.tv_title);
+            this.TVGpa = itemView.findViewById(R.id.tv_gpa);
+            this.TVWeight = itemView.findViewById(R.id.tv_weight);
+            this.TVScale = itemView.findViewById(R.id.tv_scale);
+        }
+
+        public TextView getTVTitle() {
+            return TVTitle;
+        }
+
+        public TextView getTVGpa() {
+            return TVGpa;
+        }
+
+        public TextView getTVWeight() {
+            return TVWeight;
+        }
+
+        public TextView getTVScale() {
+            return TVScale;
+        }
     }
 
 

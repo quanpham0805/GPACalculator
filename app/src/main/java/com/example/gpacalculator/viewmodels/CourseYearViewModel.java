@@ -17,9 +17,9 @@ import java.util.List;
 
 public class CourseYearViewModel extends AndroidViewModel {
 
-    private LiveData<List<CourseYearEntity>> readAllData;
-    private LiveData<List<Integer>> readAllYear;
-    private CourseYearRepository repository;
+    private final LiveData<List<CourseYearEntity>> readAllData;
+    private final LiveData<List<Integer>> readAllYear;
+    private final CourseYearRepository repository;
 
     public CourseYearViewModel(@NonNull Application application) {
         super(application);
