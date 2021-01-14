@@ -6,9 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.gpacalculator.database.CourseDetailEntity;
+import com.example.gpacalculator.database.CourseEntity;
 import com.example.gpacalculator.database.CourseTermEntity;
 import com.example.gpacalculator.database.CourseTermRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CourseTermViewModel extends AndroidViewModel {
@@ -61,5 +64,33 @@ public class CourseTermViewModel extends AndroidViewModel {
 
     public LiveData<List<String>> getTermFromYearId(int yearId) {
         return repository.getTermFromYearId(yearId);
+    }
+
+    public List<String> extractCourseName(List<CourseEntity> courseEntity) {
+        List<String> courses = new ArrayList<>();
+        for (CourseEntity i : courseEntity) {
+            courses.add(i.getCourse());
+        }
+        return courses;
+    }
+
+    public List<String> extractTermName(List<CourseTermEntity> courseTermEntities) {
+        List<String> courseTerm = new ArrayList<>();
+        for (CourseTermEntity i : courseTermEntities) {
+            courseTerm.add(i.getTerm());
+        }
+        return courseTerm;
+    }
+
+    public LiveData<List<CourseTermEntity>> getListTermFromYear(int year) {
+        return repository.getListTermFromYear(year);
+    }
+
+    public LiveData<List<CourseEntity>> getListCourseFromListTermYear(List<String> term, int year) {
+        return repository.getListCourseFromListTermYear(term, year);
+    }
+
+    public LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseListTermYear(List<String> courses, List<String> term, int year) {
+        return repository.loadAllDetailFromListCourseListTermYear(courses, term, year);
     }
 }

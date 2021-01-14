@@ -75,4 +75,16 @@ public class CourseTermRepository {
     public LiveData<List<String>> getTermFromYear(int year) {
         return courseTermDao.getTermFromYear(year);
     }
+
+    public LiveData<List<CourseTermEntity>> getListTermFromYear(int year) {
+        return courseTermDao.getListTermFromYear(year);
+    }
+
+    public LiveData<List<CourseEntity>> getListCourseFromListTermYear(List<String> term, int year) {
+        return courseTermDao.getListCourseFromListTermYear(term, year);
+    }
+
+    public LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseListTermYear(List<String> courses, List<String> term, int year) {
+        return courseTermDao.loadAllDetailFromListCourseListTermYear(courses, term, year);
+    }
 }

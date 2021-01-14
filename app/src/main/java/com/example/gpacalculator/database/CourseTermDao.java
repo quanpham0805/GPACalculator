@@ -28,6 +28,14 @@ public interface CourseTermDao {
     LiveData<List<String>> getTermFromYear(int year);
 
     @Transaction
+    @Query("SELECT * FROM course_term WHERE yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)")
+    LiveData<List<CourseTermEntity>> getListTermFromYear(int year);
+
+    @Transaction
+    @Query("SELECT * FROM course WHERE termId IN (SELECT id FROM course_term WHERE term in (:term) AND yearId = (SELECT id FROM course_year WHERE year = :year))")
+    LiveData<List<CourseEntity>> getListCourseFromListTermYear(List<String> term, int year);
+
+    @Transaction
     @Query("DELETE FROM course_term WHERE term = :term AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)")
     void deleteTermByTermAndYear(String term, int year);
 
@@ -37,6 +45,10 @@ public interface CourseTermDao {
     @Transaction
     @Query("SELECT EXISTS(SELECT 1 FROM course_term WHERE term = :term AND yearId = :yearId)")
     LiveData<Boolean> termExisted(String term, int yearId);
+
+    @Transaction
+    @Query("SELECT * FROM course_detail WHERE courseId IN (SELECT id FROM course WHERE course IN (:courses) AND termId = (SELECT DISTINCT(id) FROM course_term WHERE term IN (:term) AND yearId = (SELECT DISTINCT(id) FROM course_year WHERE year = :year)))")
+    LiveData<List<CourseDetailEntity>> loadAllDetailFromListCourseListTermYear(List<String> courses, List<String> term, int year);
 
     @Insert
     void insertTerm(CourseTermEntity courseTermEntity);

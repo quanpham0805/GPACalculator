@@ -23,6 +23,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gpacalculator.R;
+import com.example.gpacalculator.database.CourseDetailEntity;
+import com.example.gpacalculator.database.CourseEntity;
+import com.example.gpacalculator.database.CourseTermEntity;
 import com.example.gpacalculator.viewmodels.CourseTermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -54,18 +57,37 @@ public class GradesTermFragment extends Fragment implements RVAdapter.ListItemCl
 
         // Course Term View Model here
         mTermViewModel = new ViewModelProvider(this).get(CourseTermViewModel.class);
-        mTermViewModel.getYearIdFromYear(tYear).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        mTermViewModel.getListTermFromYear(tYear).observe(getViewLifecycleOwner(), new Observer<List<CourseTermEntity>>() {
             @Override
-            public void onChanged(Integer tYearId) {
-                mTermViewModel.getTermFromYearId(tYearId).observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+            public void onChanged(final List<CourseTermEntity> courseTermEntities) {
+                fTermData = mTermViewModel.extractTermName(courseTermEntities);
+                mTermViewModel.getListCourseFromListTermYear(fTermData, tYear).observe(getViewLifecycleOwner(), new Observer<List<CourseEntity>>() {
                     @Override
-                    public void onChanged(List<String> mTerm) {
-                        fTermData = mTerm;
-                        mAdapter.updateDataString(fTermData, fGradesData);
+                    public void onChanged(final List<CourseEntity> courseEntities) {
+                        mTermViewModel.loadAllDetailFromListCourseListTermYear(mTermViewModel.extractCourseName(courseEntities), fTermData, tYear)
+                                .observe(getViewLifecycleOwner(), new Observer<List<CourseDetailEntity>>() {
+                            @Override
+                            public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
+                                mAdapter.updateDataString(fTermData, CalculateGPA.getTermGPA(courseTermEntities, courseEntities, courseDetailEntities));
+                            }
+                        });
                     }
                 });
             }
         });
+
+//        mTermViewModel.getYearIdFromYear(tYear).observe(getViewLifecycleOwner(), new Observer<Integer>() {
+//            @Override
+//            public void onChanged(Integer tYearId) {
+//                mTermViewModel.getTermFromYearId(tYearId).observe(getViewLifecycleOwner(), new Observer<List<String>>() {
+//                    @Override
+//                    public void onChanged(List<String> mTerm) {
+//                        fTermData = mTerm;
+//                        mAdapter.updateDataString(fTermData, fGradesData);
+//                    }
+//                });
+//            }
+//        });
 
 
         // Setting the floating button

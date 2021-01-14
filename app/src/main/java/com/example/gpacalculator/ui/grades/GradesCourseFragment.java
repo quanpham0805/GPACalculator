@@ -68,8 +68,7 @@ public class GradesCourseFragment extends Fragment implements RVAdapter.ListItem
                         mCourseViewModel.loadAllDetailFromListCourseTermYear(fCourseData, tTerm, tYear).observe(getViewLifecycleOwner(), new Observer<List<CourseDetailEntity>>() {
                             @Override
                             public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
-                                CalculateGPA calculateGPA = new CalculateGPA(mCourse, courseDetailEntities);
-                                fGradesData = calculateGPA.getCourseGPA();
+                                fGradesData = CalculateGPA.getCourseGPA(mCourse, courseDetailEntities);
                                 mAdapter.updateDataString(fCourseData, fGradesData);
                             }
                         });
