@@ -49,7 +49,7 @@ public class PerformanceFragment extends Fragment {
 
         // setting up spinner with year, term and course live data
         spinner_year = view.findViewById(R.id.spinner_year);
-            spinner_term = view.findViewById(R.id.spinner_term);
+        spinner_term = view.findViewById(R.id.spinner_term);
         spinner_course = view.findViewById(R.id.spinner_course);
         courseViewModel.getAllYear().observe(getViewLifecycleOwner(), new Observer<List<Integer>>() {
             @Override
@@ -141,8 +141,35 @@ public class PerformanceFragment extends Fragment {
     }
 
     private void seePerformance(final View view) {
-        Toast.makeText(getContext(), "Performance is working", Toast.LENGTH_SHORT).show();
-        Navigation.findNavController(view).navigate(R.id.action_nav_performance_to_performanceDetailFragment);
+//        Toast.makeText(getContext(), "Performance is working", Toast.LENGTH_SHORT).show();
+        String year = spinner_year.getSelectedItem().toString();
+        String term = spinner_term.getSelectedItem().toString();
+        String course = spinner_course.getSelectedItem().toString();
+        if (inputCheck()) {
+            final int mYear = Integer.parseInt(year);
+            final String mTerm = term;
+            final String mCourse = course;
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("year", mYear);
+            bundle.putString("term", mTerm);
+            bundle.putString("course", mCourse);
+            Navigation.findNavController(view).navigate(R.id.action_nav_performance_to_performanceDetailFragment, bundle);
+        } else {
+            Toast.makeText(this.getContext(),
+                    "Some fields are not correct",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean inputCheck() {
+        // year is a valid year
+        boolean a = !(readAllYear == null || readAllYear.size() == 0);
+        // term is not empty or null
+        boolean b = !(readAllTerm == null || readAllTerm.size() == 0);
+        // course is not empty or null
+        boolean c = !(readAllCourse == null || readAllCourse.size() == 0);
+        return a && b && c;
     }
 
     private ArrayAdapter<String> setUpNullCaseAdapter(String msg, Context context) {

@@ -270,6 +270,96 @@ public class CalculateGPA {
         }
     }
 
+    public static List<Pair<GradeAndWeight, GradeAndWeight>> rearrangeData(List<CourseDetailEntity> listCourseDetail) {
+        List<Pair<GradeAndWeight, GradeAndWeight>> cleanedData = new ArrayList<>();
+        GradeAndWeight keyHolderFirst, keyHolderSecond;
+
+        for (CourseDetailEntity i : listCourseDetail) {
+            // the entry is stored using 4.0 scale. Hence, we need to convert 4.0 -> 100% for first holder.
+            if (i.getCourseScale() == 4) {
+                keyHolderFirst = new GradeAndWeight(FourToHundred(i.getCourseMark()), i.getCourseWeight());
+                keyHolderSecond = new GradeAndWeight(i.getCourseMark(), i.getCourseWeight());
+            }
+            // the entry is stored using 100% scale. Hence, we need to convert 100% -> 4.0 for second holder.
+            else {
+                keyHolderFirst = new GradeAndWeight(i.getCourseMark(), i.getCourseWeight());
+                keyHolderSecond = new GradeAndWeight(HundredToFour(i.getCourseMark()), i.getCourseWeight());
+            }
+
+            cleanedData.add(Pair.create(keyHolderFirst, keyHolderSecond));
+        }
+        return cleanedData;
+    }
+
+    public static boolean validateCourse(List<Pair<GradeAndWeight, GradeAndWeight>> cleanedData) {
+        double sum = 0;
+        for (Pair<GradeAndWeight, GradeAndWeight> i : cleanedData) {
+            sum += i.first.weight;
+        }
+        return (0 < sum) && (sum < 100);
+    }
+
+    public static Pair<Double, Double> getMax(List<Pair<GradeAndWeight, GradeAndWeight>> cleanedData) {
+        if (!validateCourse(cleanedData)) {
+            return Pair.create((double) -1, (double) -1);
+        }
+
+        return getFullGPA(cleanedData);
+    }
+
+    public static double getSum(double max) {
+        return max * (max + 1) / 2;
+    }
+
+    public static double getSumOfSquare(double max) {
+        return max * (max + 1) * (2 * max + 1) / 6;
+    }
+
+    public static Pair<Double, Double> getFullGPA(List<Pair<GradeAndWeight, GradeAndWeight>> cleanedData) {
+        double lostF = 0, lostS = 0;
+        for (Pair<GradeAndWeight, GradeAndWeight> i : cleanedData) {
+            lostF += i.first.weight - (i.first.grades / 100.0) * i.first.weight;
+            lostS += i.second.weight - (i.second.grades / 4.0) * i.second.weight;
+        }
+        return Pair.create((round((100.0 - lostF) * 100.0) / 100.0), (round((4.0 - 4.0 * (lostS / 100.0)) * 100.0) / 100.0));
+    }
+
+    public static Pair<Double, Double> predictGrade(List<Pair<GradeAndWeight, GradeAndWeight>> cleanedData) {
+        if (!validateCourse(cleanedData)) {
+            return Pair.create((double) -1, (double) -1);
+        }
+
+        // x will be the index
+        // y will be the grade
+
+        double N = cleanedData.size();
+        double sumX = getSum(N);
+        double sumXSquare = getSumOfSquare(N);
+        double sumY1 = 0, sumXY1 = 0, sumY2 = 0, sumXY2 = 0;
+        double weight = 100;
+        for (int i = 0; i < N; i++) {
+            weight -= cleanedData.get(i).first.weight;
+            sumY1 += cleanedData.get(i).first.grades;
+            sumY2 += cleanedData.get(i).second.grades;
+
+            sumXY1 += cleanedData.get(i).first.grades * (i + 1);
+            sumXY2 += cleanedData.get(i).second.grades * (i + 1);
+        }
+
+
+        double slope1 = (N * sumXY1 - sumX * sumY1) / (N * sumXSquare - sumX * sumX);
+        double slope2 = (N * sumXY2 - sumX * sumY2) / (N * sumXSquare - sumX * sumX);
+
+        double intercept1 = (sumY1 - slope1 * sumX) / N;
+        double intercept2 = (sumY2 - slope2 * sumX) / N;
+
+        double next1 = slope1 * (N + 1) + intercept1;
+        double next2 = slope2 * (N + 1) + intercept2;
+
+        cleanedData.add(Pair.create(new GradeAndWeight(next1, weight), new GradeAndWeight(next2, weight)));
+        return getFullGPA(cleanedData);
+    }
+
     public static class GradeAndWeight {
         public double grades, weight;
 

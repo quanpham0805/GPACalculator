@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">GPACalculator</string>
     <string name="tv_max_description">The max is calculated based on the assumption that you achieve the maximum score for all the remaining weighted tests, after rounding up.</string>
-    <string name="tv_max_er">If you get "ERROR", it means the course has a total weight of weighted tests exceed 100%</string>
+    <string name="tv_max_er">If you get "ERROR", it means the course has a total weight of weighted tests exceed 100% or equal 0%.</string>
     <string name="tv_pred_description">The prediction is calculated using linear regression with least square method and assumed that the order of the marks is in chronological order.</string>
 </resources>

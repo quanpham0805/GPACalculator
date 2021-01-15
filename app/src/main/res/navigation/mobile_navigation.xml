@@ -34,7 +34,7 @@
         android:id="@+id/nav_performance"
         android:name="com.example.gpacalculator.ui.performance.PerformanceFragment"
         android:label="Performance"
-        tools:layout="@layout/fragment_performance" >
+        tools:layout="@layout/fragment_performance">
         <action
             android:id="@+id/action_nav_performance_to_performanceDetailFragment"
             app:destination="@id/performanceDetailFragment" />

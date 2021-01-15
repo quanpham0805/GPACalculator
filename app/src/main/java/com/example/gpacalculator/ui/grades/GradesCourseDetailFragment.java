@@ -54,7 +54,7 @@ public class GradesCourseDetailFragment extends Fragment {
 
         // Course Detail VM here
         mCourseDetailViewModel = new ViewModelProvider(this).get(CourseDetailViewModel.class);
-        mCourseDetailViewModel.loadAllDetailFromCourseTermYear(tCourse, tTerm, tYear).observe(this, new Observer<List<CourseDetailEntity>>() {
+        mCourseDetailViewModel.loadAllDetailFromCourseTermYear(tCourse, tTerm, tYear).observe(getViewLifecycleOwner(), new Observer<List<CourseDetailEntity>>() {
             @Override
             public void onChanged(List<CourseDetailEntity> courseDetailEntities) {
                 fDetailData = courseDetailEntities;
