@@ -5,7 +5,7 @@ GPA Calculator is an Android app that helps the students store their GPA, as wel
 ### Features
 - Allows the user to save their marks in year/term/course folder for better organization.
 - Adding marks under some folders easily by selecting from the dropdown menu.
-- Available in 2 types of scale: 100% scale and 4.0 scale
+- Available in 2 types of scale: 100% scale and 4.0 scale.
 - Calculate the maximum GPA you can get in a course, as well as predicting the final average of the course.
 
 ### Some images:
